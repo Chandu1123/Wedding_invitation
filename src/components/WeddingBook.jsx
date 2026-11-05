@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
-  BismillahCalligraphy,
-  CrescentMoonIcon,
   FloralGoldDivider,
-  CornerArabesque,
+  CornerOrnament,
   MosqueArchCrown,
   IslamicStarIcon,
   MapPinIcon,
@@ -12,43 +10,143 @@ import {
 } from './IslamicOrnaments';
 
 /**
- * Section: Luxury 3D Two-Sided Islamic Opening Wedding Book
- * Authentic hardcover emerald velvet with gold foil, 3D turning pages, and wax seal
+ * Interactive Luxury Handcrafted Floral-Resin, Ruby-Rose, Emerald & Gold
+ * 3D Muslim Wedding Invitation Book
+ * - Desktop View: Centered closed cover unfolding into a grand 2-sided open spread
+ *   (Left Page: Bismillah, Salam, Couple Showcase & Quran | Right Page: Hindupur Venue, Date Notice, Sunnah Dua & WhatsApp)
+ * - Mobile View: 3D Page-Turning Hardcover Book (Cover -> Couple & Blessings -> Hindupur Venue & Duas)
  */
-export default function WeddingBook({ config, translations, lang, onFirstOpen }) {
+export default function WeddingBook({
+  config,
+  translations,
+  lang,
+  onFirstOpen,
+  onOpenLanguageModal,
+}) {
   const t = translations[lang] || translations.en;
   const { couple, location } = config;
 
-  // spread: 0 = Closed Front Cover, 1 = Pages 1 & 2 (Spread 1), 2 = Pages 3 & 4 (Spread 2)
-  const [spread, setSpread] = useState(0);
-  const touchStartXRef = useRef(null);
-
-  // Navigate between spreads
-  const goToSpread = useCallback(
-    (targetSpread) => {
-      if (targetSpread < 0 || targetSpread > 2) return;
-      if (spread === 0 && targetSpread > 0 && onFirstOpen) {
-        onFirstOpen();
-      }
-      setSpread(targetSpread);
-    },
-    [spread, onFirstOpen]
+  // Responsive state (Phone / Tablet portrait <= 768px)
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' ? window.innerWidth <= 768 : false
   );
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Desktop book state: isOpen = false (Cover centered), true (2-Sided Open Spread)
+  const [isOpen, setIsOpen] = useState(false);
+  // Desktop active tab highlight: 0 = Cover, 1 = Couple & Blessings, 2 = Venue & Duas
+  const [activeTab, setActiveTab] = useState(0);
+
+  // Mobile 3D book page index: 0 = Cover, 1 = Couple & Blessings, 2 = Venue & Duas
+  const [mobilePage, setMobilePage] = useState(0);
+
+  const touchStartXRef = useRef(null);
+  const touchStartYRef = useRef(null);
+
+  // 3D Parallax Tilt state for front cover portrait (Mouse + Touch)
+  const [tilt, setTilt] = useState({ x: 0, y: 0, glareX: 50, glareY: 50 });
+
+  const applyTiltFromPoint = (clientX, clientY, rect) => {
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = Math.max(-14, Math.min(14, ((y - centerY) / centerY) * -12));
+    const rotateY = Math.max(-14, Math.min(14, ((x - centerX) / centerX) * 12));
+    const glareX = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    const glareY = Math.max(0, Math.min(100, (y / rect.height) * 100));
+    setTilt({ x: rotateX, y: rotateY, glareX, glareY });
+  };
+
+  const handleCoverMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    applyTiltFromPoint(e.clientX, e.clientY, rect);
+  };
+
+  const handleCoverTouchMove = (e) => {
+    if (!e.touches || !e.touches[0]) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    applyTiltFromPoint(e.touches[0].clientX, e.touches[0].clientY, rect);
+  };
+
+  const handleCoverLeave = () => {
+    setTilt({ x: 0, y: 0, glareX: 50, glareY: 50 });
+  };
+
+  const triggerOpenAudio = useCallback(() => {
+    if (onFirstOpen) {
+      onFirstOpen();
+    }
+  }, [onFirstOpen]);
+
+  // Navigate to a specific tab/page (0 = Cover, 1 = Blessings & Couple, 2 = Venue & Duas)
+  const handleGoToPage = useCallback(
+    (pageIdx) => {
+      if (pageIdx < 0 || pageIdx > 2) return;
+      if (pageIdx > 0) {
+        triggerOpenAudio();
+        setIsOpen(true);
+      } else {
+        setIsOpen(false);
+      }
+      setActiveTab(pageIdx);
+      setMobilePage(pageIdx);
+    },
+    [triggerOpenAudio]
+  );
+
+  const handleOpenDesktop = useCallback(() => {
+    triggerOpenAudio();
+    setIsOpen(true);
+    setActiveTab(1);
+    setMobilePage(1);
+  }, [triggerOpenAudio]);
+
+  const handleCloseDesktop = useCallback(() => {
+    setIsOpen(false);
+    setActiveTab(0);
+    setMobilePage(0);
+  }, []);
+
   const handleNext = useCallback(() => {
-    if (spread < 2) goToSpread(spread + 1);
-  }, [spread, goToSpread]);
+    if (isMobile) {
+      if (mobilePage < 2) {
+        handleGoToPage(mobilePage + 1);
+      }
+    } else {
+      if (!isOpen) {
+        handleOpenDesktop();
+      } else if (activeTab === 1) {
+        setActiveTab(2);
+      }
+    }
+  }, [isMobile, mobilePage, isOpen, activeTab, handleGoToPage, handleOpenDesktop]);
 
   const handlePrev = useCallback(() => {
-    if (spread > 0) goToSpread(spread - 1);
-  }, [spread, goToSpread]);
+    if (isMobile) {
+      if (mobilePage > 0) {
+        handleGoToPage(mobilePage - 1);
+      }
+    } else {
+      if (isOpen) {
+        handleCloseDesktop();
+      }
+    }
+  }, [isMobile, mobilePage, isOpen, handleGoToPage, handleCloseDesktop]);
 
-  // Keyboard Navigation
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
         handleNext();
-      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      } else if (e.key === 'ArrowLeft' || e.key === 'Escape') {
         handlePrev();
       }
     };
@@ -56,17 +154,24 @@ export default function WeddingBook({ config, translations, lang, onFirstOpen })
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleNext, handlePrev]);
 
-  // Mobile Touch Gestures
+  // Touch swipe gestures
   const handleTouchStart = (e) => {
     touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
   };
 
   const handleTouchEnd = (e) => {
     if (touchStartXRef.current === null) return;
     const deltaX = e.changedTouches[0].clientX - touchStartXRef.current;
-    if (deltaX < -45) handleNext();
-    if (deltaX > 45) handlePrev();
+    const deltaY = Math.abs(
+      e.changedTouches[0].clientY - (touchStartYRef.current || 0)
+    );
+    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > deltaY) {
+      if (deltaX < -40) handleNext();
+      if (deltaX > 40) handlePrev();
+    }
     touchStartXRef.current = null;
+    touchStartYRef.current = null;
   };
 
   // WhatsApp Share Action
@@ -78,395 +183,669 @@ export default function WeddingBook({ config, translations, lang, onFirstOpen })
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
-  return (
-    <div
-      className="wedding-book-viewport"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      aria-label="3D Wedding Invitation Book"
-    >
-      {/* Top Spread Selector Tabs */}
-      <header className="book-top-bar" aria-label="Book Navigation Tabs">
-        <button
-          type="button"
-          className={`spread-tab-btn ${spread === 0 ? 'is-active-tab' : ''}`}
-          onClick={() => goToSpread(0)}
+  // --------------------------------------------------------------------------
+  // 1. FRONT COVER CONTENT (3D Animated Wedding Couple Portrait & Royal Foil)
+  // --------------------------------------------------------------------------
+  const renderCoverContent = () => (
+    <>
+      <div className="cover-spine-trim" aria-hidden="true">
+        <span className="spine-gold-rib" />
+        <span className="spine-gold-rib" />
+        <span className="spine-gold-rib" />
+        <span className="spine-gold-rib" />
+        <span className="spine-gold-rib" />
+      </div>
+
+      {/* 4 Lush Pressed-Floral, Ruby-Rose, Emerald & Pearl Corners */}
+      <CornerOrnament position="top-left" />
+      <CornerOrnament position="top-right" />
+      <CornerOrnament position="bottom-left" />
+      <CornerOrnament position="bottom-right" />
+
+      {/* Side Pearl & Blossom Resin Accents */}
+      <div className="resin-edge-pearls" aria-hidden="true">
+        <span className="edge-pearl pearl-left-top" />
+        <span className="edge-pearl pearl-left-bottom" />
+        <span className="edge-pearl pearl-right-top" />
+        <span className="edge-pearl pearl-right-bottom" />
+      </div>
+
+      {/* Ambient Floating Rose Petals & Sparkles */}
+      <div className="cover-ambient-effects" aria-hidden="true">
+        <span className="floating-petal petal-1">🌸</span>
+        <span className="floating-petal petal-2">✨</span>
+        <span className="floating-petal petal-3">🌹</span>
+        <span className="floating-petal petal-4">✨</span>
+        <span className="floating-petal petal-5">🌸</span>
+      </div>
+
+      <div className="page-body cover-page-body">
+        {/* Top Bismillah Calligraphy & Royal Wedding Badge */}
+        <div className="cover-header-group">
+          <p className="arabic-bismillah-cover" lang="ar" dir="rtl">
+            {t.bismillahArabic}
+          </p>
+          <span className="welcome-badge-cover">
+            ✦ {t.invitationBadge} ✦
+          </span>
+        </div>
+
+        {/* 3D Animated Wedding Couple Portrait in Illuminated Mughal Arch Frame */}
+        <div
+          className="cover-portrait-wrapper"
+          onMouseMove={handleCoverMouseMove}
+          onMouseLeave={handleCoverLeave}
+          onTouchMove={handleCoverTouchMove}
+          onTouchEnd={handleCoverLeave}
+          style={
+            tilt.x !== 0 || tilt.y !== 0
+              ? {
+                  transform: `perspective(750px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale3d(1.02, 1.02, 1.02)`,
+                }
+              : undefined
+          }
+          title={`${t.groomName} & ${t.brideName}`}
         >
-          {t.bookCoverTab}
-        </button>
-        <button
-          type="button"
-          className={`spread-tab-btn ${spread === 1 ? 'is-active-tab' : ''}`}
-          onClick={() => goToSpread(1)}
-        >
-          {t.spread1Tab}
-        </button>
-        <button
-          type="button"
-          className={`spread-tab-btn ${spread === 2 ? 'is-active-tab' : ''}`}
-          onClick={() => goToSpread(2)}
-        >
-          {t.spread2Tab}
-        </button>
-      </header>
+          <div className="portrait-glow-halo" aria-hidden="true" />
+          <div className="portrait-crown-pearl" aria-hidden="true" />
+          <div className="portrait-arch-frame">
+            <img
+              src="./images/wedding-couple-3d.png"
+              onError={(e) => {
+                e.currentTarget.src = './images/couple-3d.png';
+              }}
+              alt={`${t.groomName} & ${t.brideName}`}
+              className="cover-portrait-img"
+              loading="eager"
+            />
+            <div className="portrait-light-sweep" aria-hidden="true" />
+            <div
+              className="portrait-shimmer-glare"
+              style={{
+                background: `radial-gradient(circle at ${tilt.glareX}% ${tilt.glareY}%, rgba(255,255,255,0.48) 0%, rgba(255,255,255,0.05) 45%, transparent 70%)`,
+              }}
+              aria-hidden="true"
+            />
+            <div className="portrait-gold-rim" aria-hidden="true" />
+          </div>
+        </div>
 
-      {/* 3D Stage Container */}
-      <div className="book-3d-stage">
-        <div className={`book-3d-scene ${spread === 0 ? 'book-scene-closed' : 'book-scene-open'}`}>
-          <div className="book-spine-hinge" aria-hidden="true" />
+        {/* Couple Names, Destination Ribbon & Open CTA */}
+        <div className="cover-info-group">
+          <h1 className="book-cover-names">
+            <span className="cover-person-line">{t.groomName}</span>
+            <span className="book-ampersand">
+              <span className="amp-line" />
+              <em>&amp;</em>
+              <span className="amp-line" />
+            </span>
+            <span className="cover-person-line">{t.brideName}</span>
+          </h1>
 
-          {/* ================================================================
-              LEAF 1: HINGED ON LEFT SPINE
-              - Face 1A: Front Cover (rests on right when closed)
-              - Face 1B: Page 1 (inside left spread when open)
-              ================================================================ */}
-          <div
-            className={`book-leaf book-leaf-1 ${spread >= 1 ? 'leaf-flipped' : ''}`}
-            style={{ zIndex: spread === 0 ? 50 : 20 }}
-          >
-            {/* FRONT FACE (Spread 0: Closed Cover) */}
-            <div className="leaf-face face-front cover-face">
-              <CornerArabesque position="top-left" />
-              <CornerArabesque position="top-right" />
-              <CornerArabesque position="bottom-left" />
-              <CornerArabesque position="bottom-right" />
-
-              <MosqueArchCrown className="book-cover-arch" />
-
-              {/* Glowing Golden Crescent & Star */}
-              <div className="cover-crescent-halo">
-                <CrescentMoonIcon size={64} glow={true} className="cover-moon" />
-              </div>
-
-              {/* Sacred Bismillah Calligraphy */}
-              <div className="cover-bismillah-wrap">
-                <BismillahCalligraphy />
-                <p className="cover-bismillah-translation">{t.bismillahTranslation}</p>
-              </div>
-
-              {/* Royal Badge */}
-              <div className="cover-royal-badge">
-                <IslamicStarIcon size={14} className="cover-star" />
-                <span>{t.invitationBadge}</span>
-                <IslamicStarIcon size={14} className="cover-star" />
-              </div>
-
-              {/* Bride & Groom Names */}
-              <div className="cover-couple-names">
-                <h1 className="cover-groom-title">{t.groomName}</h1>
-                <div className="cover-ampersand-divider">
-                  <span className="cover-gold-line" />
-                  <span className="cover-ampersand">&amp;</span>
-                  <span className="cover-gold-line" />
-                </div>
-                <h1 className="cover-bride-title">{t.brideName}</h1>
-              </div>
-
-              {/* Wax Seal with Monogram "C & K" */}
-              <div className="cover-wax-seal" onClick={() => goToSpread(1)} title="Tap to Open">
-                <div className="wax-seal-outer">
-                  <div className="wax-seal-inner">
-                    <span className="wax-seal-monogram">{couple.monogram}</span>
-                    <span className="wax-seal-qubool">قَبِلْتُ</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Button: Open Wedding Invitation */}
-              <div className="cover-action-wrap">
-                <button
-                  type="button"
-                  className="btn-book-open"
-                  onClick={() => goToSpread(1)}
-                  aria-label="Open Wedding Invitation"
-                >
-                  <span className="btn-shimmer-sparkle" />
-                  <IslamicStarIcon size={16} />
-                  <span>{t.openInvitationBtn}</span>
-                  <IslamicStarIcon size={16} />
-                </button>
-              </div>
-            </div>
-
-            {/* BACK FACE (Spread 1: Page 1 - Inside Left Spread) */}
-            <div className="leaf-face face-back page-left">
-              <CornerArabesque position="top-left" />
-              <CornerArabesque position="bottom-left" />
-              <MosqueArchCrown className="page-arch-crown" />
-
-              <div className="page-content-box">
-                {/* Bismillah Calligraphy */}
-                <div className="page-bismillah-mini">
-                  <span className="page-arabic-bismillah">{t.bismillahArabic}</span>
-                  <span className="page-bismillah-meaning">“{t.bismillahTranslation}”</span>
-                </div>
-
-                {/* Assalamu Alaikum Salutation */}
-                <div className="page-salam-card">
-                  <span className="page-salam-arabic">{t.salamArabic}</span>
-                  <p className="page-salam-translit">{t.salamTransliteration}</p>
-                  <p className="page-salam-trans">“{t.salamTranslation}”</p>
-                </div>
-
-                <FloralGoldDivider className="page-mini-divider" />
-
-                {/* Holy Quran Surah Ar-Rum */}
-                <div className="page-quran-box">
-                  <div className="page-quran-badge">
-                    <IslamicStarIcon size={12} />
-                    <span>{t.quranBadge}</span>
-                    <IslamicStarIcon size={12} />
-                  </div>
-                  <p className="page-quran-arabic" dir="rtl">{t.quranArabic}</p>
-                  <p className="page-quran-translation">{t.quranTranslation}</p>
-                </div>
-
-                {/* Cordial Family Invitation Lead */}
-                <div className="page-family-lead">
-                  <p>{t.familyInvitationLead}</p>
-                </div>
-              </div>
-
-              <div className="page-footer-nav">
-                <span className="page-number-tag">{t.pageOf} 1</span>
-              </div>
-            </div>
+          <div className="cover-date-ribbon">
+            <span className="ribbon-star">📍</span>
+            <span className="welcome-date-pill">
+              {t.venueCity}, {t.venueState}
+            </span>
+            <span className="ribbon-star">✦</span>
           </div>
 
-          {/* ================================================================
-              LEAF 2: HINGED ON LEFT SPINE
-              - Face 2A: Page 2 (Right page of Spread 1: The Couple)
-              - Face 2B: Page 3 (Left page of Spread 2: Venue & Date Notice)
-              ================================================================ */}
-          <div
-            className={`book-leaf book-leaf-2 ${spread >= 2 ? 'leaf-flipped' : ''}`}
-            style={{ zIndex: spread <= 1 ? 30 : 15 }}
-          >
-            {/* FRONT FACE (Spread 1: Page 2 - Right page: Couple Feature) */}
-            <div className="leaf-face face-front page-right">
-              <CornerArabesque position="top-right" />
-              <CornerArabesque position="bottom-right" />
-              <MosqueArchCrown className="page-arch-crown" />
-
-              <div className="page-content-box">
-                <span className="page-section-tag">{t.holyUnionBadge}</span>
-
-                <h2 className="page-wedding-title">{t.nikahWalimaTitle}</h2>
-                <p className="page-wedding-subtitle">{t.weddingSubtitle}</p>
-
-                {/* Couple Presentation */}
-                <div className="book-couple-container">
-                  {/* Groom */}
-                  <div className="book-person-block groom-block">
-                    <span className="person-role-chip">{t.groomTitle}</span>
-                    <h3 className="person-full-name">{t.groomName}</h3>
-                    <p className="person-parents-line">{t.groomParents}</p>
-                    <p className="person-family-name">({t.groomFamily})</p>
-                  </div>
-
-                  {/* Central "Qubool Hai" Medallion */}
-                  <div className="book-union-medallion">
-                    <div className="medallion-line" />
-                    <div className="medallion-center">
-                      <span className="medallion-arabic">{t.quboolHaiArabic}</span>
-                      <span className="medallion-qubool">{t.quboolHai}</span>
-                    </div>
-                    <div className="medallion-line" />
-                  </div>
-
-                  {/* Bride */}
-                  <div className="book-person-block bride-block">
-                    <span className="person-role-chip">{t.brideTitle}</span>
-                    <h3 className="person-full-name">{t.brideName}</h3>
-                    <p className="person-parents-line">{t.brideParents}</p>
-                    <p className="person-family-name">({t.brideFamily})</p>
-                  </div>
-                </div>
-
-                <FloralGoldDivider className="page-mini-divider" />
-
-                <div className="page-turn-hint">
-                  <button
-                    type="button"
-                    className="btn-page-action btn-next-page"
-                    onClick={handleNext}
-                  >
-                    <span>{t.nextPage}</span>
-                    <IslamicStarIcon size={14} />
-                  </button>
-                </div>
-              </div>
-
-              <div className="page-footer-nav">
-                <span className="page-number-tag">{t.pageOf} 2</span>
-              </div>
-            </div>
-
-            {/* BACK FACE (Spread 2: Page 3 - Inside Left Spread: Venue & Dates) */}
-            <div className="leaf-face face-back page-left">
-              <CornerArabesque position="top-left" />
-              <CornerArabesque position="bottom-left" />
-              <MosqueArchCrown className="page-arch-crown" />
-
-              <div className="page-content-box">
-                {/* Venue Spotlight: Hindupur */}
-                <div className="page-venue-card">
-                  <div className="venue-card-badge">
-                    <MapPinIcon size={16} />
-                    <span>{t.venueBadge}</span>
-                    <MapPinIcon size={16} />
-                  </div>
-
-                  <h3 className="venue-main-city">{t.venueCity}</h3>
-                  <p className="venue-state-country">{t.venueState}</p>
-                  <p className="venue-full-line">{t.venueFullAddress}</p>
-
-                  <a
-                    href={location.googleMapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-google-maps"
-                  >
-                    <MapPinIcon size={15} />
-                    <span>{t.venueDirectionsBtn}</span>
-                  </a>
-                </div>
-
-                <FloralGoldDivider className="page-mini-divider" />
-
-                {/* Date & Time Announcement Notice */}
-                <div className="page-datetime-notice-card">
-                  <div className="notice-icon-halo">
-                    <CalendarIcon size={24} />
-                  </div>
-
-                  <span className="notice-badge">{t.dateTimeBadge}</span>
-                  <h4 className="notice-title">{t.dateTimeTitle}</h4>
-                  <p className="notice-subtext">{t.dateTimeSubtext}</p>
-
-                  <div className="notice-highlight-pill">
-                    <IslamicStarIcon size={14} />
-                    <span>{t.datesToAnnounceValue}</span>
-                    <IslamicStarIcon size={14} />
-                  </div>
-                </div>
-              </div>
-
-              <div className="page-footer-nav">
-                <button
-                  type="button"
-                  className="page-nav-link"
-                  onClick={handlePrev}
-                >
-                  {t.prevPage}
-                </button>
-                <span className="page-number-tag">{t.pageOf} 3</span>
-              </div>
-            </div>
-          </div>
-
-          {/* ================================================================
-              STATIC RIGHT BASE PAGE: PAGE 4
-              - Fixed under Leaf 2 on the right side
-              - Visible on Spread 2: Prophetic Wedding Dua & WhatsApp Sharing
-              ================================================================ */}
-          <div className="book-leaf-static page-right" style={{ zIndex: 10 }}>
-            <CornerArabesque position="top-right" />
-            <CornerArabesque position="bottom-right" />
-            <MosqueArchCrown className="page-arch-crown" />
-
-            <div className="page-content-box">
-              {/* Prophetic Wedding Blessing Dua */}
-              <div className="page-sunnah-dua-box">
-                <div className="sunnah-badge">
-                  <IslamicStarIcon size={12} />
-                  <span>{t.sunnahBadge}</span>
-                  <IslamicStarIcon size={12} />
-                </div>
-
-                <p className="sunnah-arabic-text" dir="rtl">{t.sunnahArabic}</p>
-                <p className="sunnah-translit-text">{t.sunnahTransliteration}</p>
-                <p className="sunnah-trans-text">{t.sunnahTranslation}</p>
-                <span className="sunnah-ref-tag">{t.sunnahReference}</span>
-              </div>
-
-              <FloralGoldDivider className="page-mini-divider" />
-
-              {/* Family Blessings */}
-              <div className="page-closing-families">
-                <p className="closing-note-text">{t.bothFamiliesNote}</p>
-              </div>
-
-              {/* WhatsApp Share Button */}
-              <div className="page-share-actions">
-                <button
-                  type="button"
-                  className="btn-whatsapp-action"
-                  onClick={handleShareOnWhatsApp}
-                >
-                  <WhatsAppIcon size={18} />
-                  <span>{t.shareOnWhatsApp}</span>
-                </button>
-
-                <button
-                  type="button"
-                  className="btn-close-book"
-                  onClick={() => goToSpread(0)}
-                  title="Close book back to front cover"
-                >
-                  <span>{t.closeBookBtn}</span>
-                </button>
-              </div>
-            </div>
-
-            <div className="page-footer-nav">
-              <span className="page-number-tag">{t.pageOf} 4</span>
-            </div>
+          <div className="cover-open-cta-pill">
+            <IslamicStarIcon size={13} />
+            <span>{t.openInvitationBtn}</span>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
           </div>
         </div>
       </div>
+    </>
+  );
 
-      {/* Bottom Navigation Dots & Quick Page Controls */}
-      <footer className="book-bottom-nav">
+  // --------------------------------------------------------------------------
+  // 2. INSIDE LEFT PAGE (Blessings, Salam, Couple Showcase & Holy Qur'an)
+  // --------------------------------------------------------------------------
+  const renderLeftPageContent = () => (
+    <>
+      <CornerOrnament position="top-left" />
+      <CornerOrnament position="top-right" />
+      <CornerOrnament position="bottom-left" />
+      <CornerOrnament position="bottom-right" />
+      <MosqueArchCrown className="page-arch" />
+
+      <div className="page-body">
+        <p className="arabic-bismillah" lang="ar" dir="rtl">
+          {t.bismillahArabic}
+        </p>
+        <p className="bismillah-translation">“{t.bismillahTranslation}”</p>
+
+        <p className="arabic-salam" lang="ar" dir="rtl">
+          {t.salamArabic}
+        </p>
+        <p className="salam-transliteration">{t.salamTransliteration}</p>
+
+        <p className="invitation-lead">{t.familyInvitationLead}</p>
+
+        {/* Royal Couple Showcase Plaque with 3D Cameo Medallion */}
+        <div className="hero-couple-showcase">
+          <div className="couple-mini-cameo" aria-hidden="true">
+            <img
+              src="./images/wedding-couple-3d.png"
+              onError={(e) => {
+                e.currentTarget.src = './images/couple-3d.png';
+              }}
+              alt=""
+              className="couple-mini-cameo-img"
+            />
+          </div>
+
+          <span className="couple-role-pill">{t.groomTitle}</span>
+          <h2 className="hero-couple-name">{t.groomName}</h2>
+          <p className="couple-parents-line">{t.groomParents}</p>
+
+          <span className="hero-couple-conjunction">
+            <IslamicStarIcon size={12} />
+            <span>{t.quboolHaiArabic} • {t.quboolHai}</span>
+            <IslamicStarIcon size={12} />
+          </span>
+
+          <span className="couple-role-pill">{t.brideTitle}</span>
+          <h2 className="hero-couple-name">{t.brideName}</h2>
+          <p className="couple-parents-line">{t.brideParents}</p>
+        </div>
+
+        {/* Holy Qur'an Verse (Surah Ar-Rum 30:21) */}
+        <div className="page-dua-container">
+          <span className="quran-badge-mini">✦ {t.quranBadge} ✦</span>
+          <p className="arabic-blessing-compact" lang="ar" dir="rtl">
+            {t.quranArabic}
+          </p>
+          <p className="dua-translation-compact">{t.quranTranslation}</p>
+        </div>
+      </div>
+
+      <div className="page-footer-row">
         <button
           type="button"
-          className="book-arrow-btn"
-          onClick={handlePrev}
-          disabled={spread === 0}
-          aria-label="Previous Page"
+          className="page-corner-btn"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleGoToPage(0);
+          }}
+          title="Back to Book Cover"
         >
-          ‹
+          ← {t.bookCoverTab}
         </button>
 
-        <div className="book-nav-dots" role="tablist">
+        {isMobile ? (
           <button
             type="button"
-            className={`nav-dot ${spread === 0 ? 'is-active-dot' : ''}`}
-            onClick={() => goToSpread(0)}
-            title="Cover"
-          />
+            className="page-corner-btn page-corner-btn--highlight"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleGoToPage(2);
+            }}
+            title="Turn to Venue & Duas page"
+          >
+            {t.venueTitle} &amp; Duas →
+          </button>
+        ) : (
+          <span className="page-num-label">✦ {t.holyUnionBadge} ✦</span>
+        )}
+      </div>
+    </>
+  );
+
+  // --------------------------------------------------------------------------
+  // 3. INSIDE RIGHT PAGE (Hindupur Venue, Date Notice, Sunnah Dua & Share)
+  // --------------------------------------------------------------------------
+  const renderRightPageContent = () => (
+    <>
+      <CornerOrnament position="top-left" />
+      <CornerOrnament position="top-right" />
+      <CornerOrnament position="bottom-left" />
+      <CornerOrnament position="bottom-right" />
+      <MosqueArchCrown className="page-arch" />
+
+      <div className="page-body">
+        {/* Ceremony Venue Spotlight Card: HINDUPUR */}
+        <div className="book-venue-block">
+          <div className="venue-icon-badge" aria-hidden="true">
+            <MapPinIcon size={18} />
+          </div>
+
+          <span className="section-eyebrow">✦ {t.venueBadge} ✦</span>
+          <h3 className="book-venue-title">{t.venueCity}</h3>
+          <p className="venue-clean-details">{t.venueState}</p>
+          <p className="venue-clean-address">{t.venueFullAddress}</p>
+
+          <a
+            href={location.googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-gold-primary btn-compact"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <MapPinIcon size={15} />
+            <span>{t.venueDirectionsBtn}</span>
+          </a>
+        </div>
+
+        <FloralGoldDivider />
+
+        {/* Date & Time Announcement Showcase (No Date/Time Fixed Yet) */}
+        <div className="royal-date-notice-box">
+          <div className="notice-header-row">
+            <CalendarIcon size={15} />
+            <span className="section-eyebrow">{t.dateTimeBadge}</span>
+          </div>
+          <h4 className="notice-main-heading">{t.dateTimeTitle}</h4>
+          <div className="notice-golden-pill">
+            <IslamicStarIcon size={12} />
+            <span>{t.datesToAnnounceValue}</span>
+            <IslamicStarIcon size={12} />
+          </div>
+          <p className="notice-description-text">{t.dateTimeSubtext}</p>
+        </div>
+
+        {/* Prophetic Sunnah Wedding Blessing Dua & Both Families Note */}
+        <div className="page-dua-container sunnah-dua-card">
+          <span className="quran-badge-mini">✦ {t.sunnahBadge} ✦</span>
+          <p className="arabic-blessing-compact" lang="ar" dir="rtl">
+            {t.sunnahArabic}
+          </p>
+          <p className="dua-translation-compact">{t.sunnahTranslation}</p>
+          <p className="closing-families-line">{t.bothFamiliesNote}</p>
+        </div>
+
+        {/* Direct WhatsApp Share CTA */}
+        <div className="right-page-actions">
           <button
             type="button"
-            className={`nav-dot ${spread === 1 ? 'is-active-dot' : ''}`}
-            onClick={() => goToSpread(1)}
-            title="Pages 1 & 2"
-          />
+            onClick={handleShareOnWhatsApp}
+            className="btn-whatsapp-compact"
+            title="Share wedding invitation on WhatsApp"
+          >
+            <WhatsAppIcon size={15} />
+            <span>{t.shareOnWhatsApp}</span>
+          </button>
+        </div>
+      </div>
+
+      <div className="page-footer-row">
+        {isMobile ? (
+          <>
+            <button
+              type="button"
+              className="page-corner-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleGoToPage(1);
+              }}
+            >
+              {t.prevPage}
+            </button>
+            <button
+              type="button"
+              className="page-corner-btn page-corner-btn--highlight"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleGoToPage(0);
+              }}
+            >
+              {t.closeBookBtn}
+            </button>
+          </>
+        ) : (
+          <>
+            <span className="page-num-label">📍 {t.venueCity} • Insha&apos;Allah</span>
+            <button
+              type="button"
+              className="page-corner-btn page-corner-btn--highlight"
+              onClick={handleCloseDesktop}
+              title="Close book back to cover"
+            >
+              ← {t.closeBookBtn}
+            </button>
+          </>
+        )}
+      </div>
+    </>
+  );
+
+  // --------------------------------------------------------------------------
+  // RENDER COMPONENT
+  // --------------------------------------------------------------------------
+  const isBackDisabled = isMobile ? mobilePage === 0 : !isOpen;
+  const isNextDisabled = isMobile ? mobilePage === 2 : isOpen;
+
+  return (
+    <div
+      className="twoside-book-viewport"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
+      {/* Top Header Navigation Bar */}
+      <header className="twoside-top-bar" aria-label="Invitation Navigation">
+        <div className="top-nav-pills">
           <button
             type="button"
-            className={`nav-dot ${spread === 2 ? 'is-active-dot' : ''}`}
-            onClick={() => goToSpread(2)}
-            title="Pages 3 & 4"
-          />
+            className={`spread-pill ${
+              (isMobile ? mobilePage === 0 : !isOpen) ? 'spread-pill--active' : ''
+            }`}
+            onClick={() => handleGoToPage(0)}
+          >
+            📖 {t.bookCoverTab}
+          </button>
+          <button
+            type="button"
+            className={`spread-pill ${
+              (isMobile ? mobilePage === 1 : isOpen && activeTab === 1)
+                ? 'spread-pill--active'
+                : ''
+            }`}
+            onClick={() => handleGoToPage(1)}
+          >
+            ✨ {t.spread1Tab}
+          </button>
+          <button
+            type="button"
+            className={`spread-pill ${
+              (isMobile ? mobilePage === 2 : isOpen && activeTab === 2)
+                ? 'spread-pill--active'
+                : ''
+            }`}
+            onClick={() => handleGoToPage(2)}
+          >
+            📍 {t.spread2Tab}
+          </button>
+        </div>
+
+        <div className="top-bar-right-actions">
+          {onOpenLanguageModal && (
+            <button
+              type="button"
+              className="lang-top-btn"
+              onClick={onOpenLanguageModal}
+              title="Change Language / భాషను మార్చండి / भाषा बदलें"
+            >
+              <span>🌐</span>
+              <span>{t.langName}</span>
+            </button>
+          )}
+
+          <button
+            type="button"
+            className="whatsapp-top-btn"
+            onClick={handleShareOnWhatsApp}
+            title="Share invitation on WhatsApp"
+          >
+            <WhatsAppIcon size={14} />
+            <span>Share</span>
+          </button>
+        </div>
+      </header>
+
+      {/* Main 3D Book Stage */}
+      <div className="twoside-scene">
+        {/* Desktop Left Side Arrow */}
+        {!isMobile && (
+          <button
+            type="button"
+            className={`book-side-arrow book-side-arrow--prev ${
+              isBackDisabled ? 'is-disabled' : ''
+            }`}
+            onClick={handlePrev}
+            disabled={isBackDisabled}
+            aria-label="Previous Page"
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            <span className="side-arrow-label">{t.bookCoverTab}</span>
+          </button>
+        )}
+
+        {isMobile ? (
+          /* ================================================================
+             MOBILE VIEW: 3D Page-Turning Hardcover Book
+             Each sheet hinges on the left velvet-gold spine & flips in 3D!
+             ================================================================ */
+          <div className="mobile-3d-book">
+            {/* Bound Velvet & Gold Left Spine */}
+            <div className="mobile-book-spine" aria-hidden="true">
+              <span className="spine-gold-rib" />
+              <span className="spine-gold-rib" />
+              <span className="spine-gold-rib" />
+              <span className="spine-gold-rib" />
+              <span className="spine-gold-rib" />
+            </div>
+
+            {/* Stacked Gilded Paper Edges on Right */}
+            <div className="mobile-book-edges" aria-hidden="true" />
+
+            {/* SHEET 0: FRONT COVER */}
+            <div
+              className={`mobile-3d-sheet mobile-sheet--cover ${
+                mobilePage > 0 ? 'mobile-sheet--turned' : 'mobile-sheet--active'
+              }`}
+              onClick={mobilePage === 0 ? () => handleGoToPage(1) : undefined}
+              role={mobilePage === 0 ? 'button' : undefined}
+              tabIndex={mobilePage === 0 ? 0 : -1}
+              aria-label="Open Wedding Invitation Book"
+            >
+              <div className="leaf-face cover-face mobile-sheet-face">
+                {renderCoverContent()}
+              </div>
+            </div>
+
+            {/* SHEET 1: INSIDE PAGE 1 (Blessings & Couple) */}
+            <div
+              className={`mobile-3d-sheet mobile-sheet--page1 ${
+                mobilePage > 1
+                  ? 'mobile-sheet--turned'
+                  : mobilePage === 1
+                  ? 'mobile-sheet--active'
+                  : 'mobile-sheet--under'
+              }`}
+            >
+              <div className="leaf-face page-right mobile-sheet-face">
+                <div className="cover-spine-trim" aria-hidden="true" />
+                {renderLeftPageContent()}
+              </div>
+            </div>
+
+            {/* SHEET 2: INSIDE PAGE 2 (Hindupur Venue, Date Notice & Duas) */}
+            <div
+              className={`mobile-3d-sheet mobile-sheet--page2 ${
+                mobilePage === 2 ? 'mobile-sheet--active' : 'mobile-sheet--under'
+              }`}
+            >
+              <div className="leaf-face page-right mobile-sheet-face">
+                <div className="cover-spine-trim" aria-hidden="true" />
+                {renderRightPageContent()}
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* ================================================================
+             DESKTOP VIEW: Centered closed cover unfolding into 2-sided spread
+             ================================================================ */
+          <div
+            className={`twoside-book ${
+              !isOpen ? 'twoside-book--closed' : 'twoside-book--open'
+            }`}
+          >
+            <div className="twoside-center-spine" aria-hidden="true" />
+            <div className="book-page-depth-layers" aria-hidden="true" />
+
+            <div
+              className={`book-leaf cover-leaf ${
+                isOpen ? 'book-leaf--turned' : ''
+              }`}
+              style={{ zIndex: isOpen ? 20 : 35 }}
+            >
+              {/* FRONT: 3D ANIMATED COUPLE COVER */}
+              <div
+                className="leaf-face leaf-front cover-face"
+                onClick={!isOpen ? handleOpenDesktop : undefined}
+                role={!isOpen ? 'button' : undefined}
+                tabIndex={!isOpen ? 0 : -1}
+                aria-label={!isOpen ? 'Open Wedding Invitation Book' : undefined}
+              >
+                {renderCoverContent()}
+              </div>
+
+              {/* BACK: LEFT PAGE (Couple & Blessings) */}
+              <div
+                className={`leaf-face leaf-back page-left ${
+                  activeTab === 1 ? 'spread-page--highlighted' : ''
+                }`}
+              >
+                {renderLeftPageContent()}
+              </div>
+            </div>
+
+            {/* BASE: RIGHT PAGE (Hindupur Venue, Date Announcement & Duas) */}
+            <div
+              className={`book-static-right page-right ${
+                !isOpen ? 'book-static-right--hidden' : ''
+              } ${activeTab === 2 ? 'spread-page--highlighted' : ''}`}
+            >
+              {renderRightPageContent()}
+            </div>
+          </div>
+        )}
+
+        {/* Desktop Right Side Arrow */}
+        {!isMobile && (
+          <button
+            type="button"
+            className={`book-side-arrow book-side-arrow--next ${
+              isNextDisabled ? 'is-disabled' : ''
+            }`}
+            onClick={handleNext}
+            disabled={isNextDisabled}
+            aria-label="Open Invitation Spread"
+          >
+            <span className="side-arrow-label">{t.openInvitationBtn}</span>
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        )}
+      </div>
+
+      {/* Bottom Navigation Bar */}
+      <footer className="twoside-bottom-nav" aria-label="Book Navigation">
+        <button
+          type="button"
+          className={`nav-btn-pill nav-btn-pill--prev ${
+            isBackDisabled ? 'nav-btn-pill--disabled' : ''
+          }`}
+          onClick={handlePrev}
+          disabled={isBackDisabled}
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          <span>{t.prevPage.replace('← ', '')}</span>
+        </button>
+
+        {/* Page Indicator Dots */}
+        <div className="book-spread-nav" role="tablist">
+          {[
+            { idx: 0, label: t.bookCoverTab },
+            { idx: 1, label: isMobile ? 'Couple' : 'Inside Spread 📖' },
+            ...(isMobile ? [{ idx: 2, label: t.venueCity }] : []),
+          ].map((item, i) => {
+            const isSelected = isMobile
+              ? mobilePage === item.idx
+              : item.idx === 0
+              ? !isOpen
+              : isOpen;
+            return (
+              <React.Fragment key={item.idx}>
+                {i > 0 && <span className="spread-separator">•</span>}
+                <button
+                  type="button"
+                  className={`spread-dot-pill ${
+                    isSelected ? 'spread-dot-pill--active' : ''
+                  }`}
+                  onClick={() => handleGoToPage(item.idx)}
+                  role="tab"
+                  aria-selected={isSelected}
+                >
+                  <span className="dot-indicator" />
+                  <span className="dot-label">{item.label}</span>
+                </button>
+              </React.Fragment>
+            );
+          })}
         </div>
 
         <button
           type="button"
-          className="book-arrow-btn"
+          className={`nav-btn-pill nav-btn-pill--next ${
+            isNextDisabled ? 'nav-btn-pill--disabled' : ''
+          }`}
           onClick={handleNext}
-          disabled={spread === 2}
-          aria-label="Next Page"
+          disabled={isNextDisabled}
         >
-          ›
+          <span>{t.nextPage.replace(' →', '')}</span>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
         </button>
       </footer>
     </div>

@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * Bismillah Calligraphy SVG - Vector rendering of In the name of Allah
  */
-export function BismillahCalligraphy({ className = '', color = '#D4AF37' }) {
+export function BismillahCalligraphy({ className = '' }) {
   return (
     <div className={`bismillah-art-wrapper ${className}`} aria-label="Bismillahir Rahmanir Raheem">
       <svg
@@ -14,26 +14,21 @@ export function BismillahCalligraphy({ className = '', color = '#D4AF37' }) {
       >
         <defs>
           <linearGradient id="goldCalligraphyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#AA7A1E" />
-            <stop offset="35%" stopColor="#F9E8A2" />
-            <stop offset="70%" stopColor="#D4AF37" />
-            <stop offset="100%" stopColor="#AA7A1E" />
+            <stop offset="0%" stopColor="#8C3349" />
+            <stop offset="35%" stopColor="#C98A28" />
+            <stop offset="70%" stopColor="#7A2038" />
+            <stop offset="100%" stopColor="#8C3349" />
           </linearGradient>
-          <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="2.5" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
         </defs>
         <text
           x="250"
           y="62"
           textAnchor="middle"
           fill="url(#goldCalligraphyGrad)"
-          filter="url(#goldGlow)"
           fontFamily="'Amiri', 'Traditional Arabic', serif"
-          fontSize="48"
+          fontSize="46"
           fontWeight="bold"
-          letterSpacing="2"
+          letterSpacing="1.5"
         >
           بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
         </text>
@@ -43,9 +38,9 @@ export function BismillahCalligraphy({ className = '', color = '#D4AF37' }) {
 }
 
 /**
- * Animated Golden Crescent Moon and Star
+ * Animated Crescent Moon and Star in Rose-Gold, Antique Gold & Pearl
  */
-export function CrescentMoonIcon({ size = 56, className = '', glow = true }) {
+export function CrescentMoonIcon({ size = 50, className = '', glow = true }) {
   return (
     <svg
       width={size}
@@ -58,14 +53,13 @@ export function CrescentMoonIcon({ size = 56, className = '', glow = true }) {
     >
       <defs>
         <linearGradient id="crescentGoldGrad" x1="12" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#FFF2B2" />
-          <stop offset="40%" stopColor="#D4AF37" />
-          <stop offset="85%" stopColor="#996515" />
-          <stop offset="100%" stopColor="#664608" />
+          <stop offset="0%" stopColor="#F5C37E" />
+          <stop offset="45%" stopColor="#C98A28" />
+          <stop offset="100%" stopColor="#8C3349" />
         </linearGradient>
         {glow && (
           <filter id="moonGlow" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -74,48 +68,47 @@ export function CrescentMoonIcon({ size = 56, className = '', glow = true }) {
         )}
       </defs>
 
-      {/* Decorative Outer Dotted Ring */}
+      {/* Outer pearl dotted halo */}
       <circle
         cx="32"
         cy="32"
-        r="30"
+        r="29"
         stroke="url(#crescentGoldGrad)"
-        strokeWidth="1"
+        strokeWidth="1.2"
         strokeDasharray="2 4"
-        opacity="0.6"
+        opacity="0.7"
       />
 
       {/* Crescent Moon */}
       <path
-        d="M39.5 41C30.9 41 23.9 34 23.9 25.4C23.9 19.8 26.9 14.8 31.4 12C21.3 12.8 13.3 21.2 13.3 31.5C13.3 42.4 22.1 51.2 33 51.2C40.9 51.2 47.7 46.5 50.8 39.8C47.4 40.6 43.5 41 39.5 41Z"
+        d="M39.8 40.5C31.2 40.5 24.2 33.5 24.2 24.9C24.2 19.3 27.2 14.3 31.7 11.5C21.6 12.3 13.6 20.7 13.6 31C13.6 41.9 22.4 50.7 33.3 50.7C41.2 50.7 48 46 51.1 39.3C47.7 40.1 43.8 40.5 39.8 40.5Z"
         fill="url(#crescentGoldGrad)"
-        filter={glow ? "url(#moonGlow)" : undefined}
+        filter={glow ? 'url(#moonGlow)' : undefined}
       />
 
       {/* Star nestled in crescent */}
-      <polygon
-        points="42,16 43.8,20.2 48,22 43.8,23.8 42,28 40.2,23.8 36,22 40.2,20.2"
-        fill="url(#crescentGoldGrad)"
+      <path
+        d="M42 16L43.8 20.2L48 22L43.8 23.8L42 28L40.2 23.8L36 22L40.2 20.2L42 16Z"
+        fill="#C98A28"
       />
 
-      {/* Accent Stardust dots */}
-      <circle cx="28" cy="18" r="1.5" fill="#FFF2B2" opacity="0.9" />
-      <circle cx="48" cy="32" r="1.3" fill="#FFF2B2" opacity="0.8" />
-      <circle cx="34" cy="46" r="1.2" fill="#FFF2B2" opacity="0.7" />
+      {/* Tiny pearls */}
+      <circle cx="29" cy="19" r="1.8" fill="#FFFDF9" stroke="#C88A7B" strokeWidth="0.6" />
+      <circle cx="48" cy="31" r="1.8" fill="#FFFDF9" stroke="#C88A7B" strokeWidth="0.6" />
     </svg>
   );
 }
 
 /**
- * 8-Pointed Islamic Star (Rub el Hizb)
+ * 8-Pointed Islamic Star with Pearl Center
  */
-export function IslamicStarIcon({ size = 24, className = '', fill = 'none' }) {
+export function IslamicStarIcon({ size = 22, className = '' }) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 32 32"
-      fill={fill}
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-hidden="true"
@@ -137,60 +130,64 @@ export function IslamicStarIcon({ size = 24, className = '', fill = 'none' }) {
         stroke="currentColor"
         strokeWidth="1.4"
       />
-      <circle cx="16" cy="16" r="3" fill="currentColor" opacity="0.85" />
+      <circle cx="16" cy="16" r="3.2" fill="#FFF9FA" stroke="currentColor" strokeWidth="1" />
     </svg>
   );
 }
 
 /**
- * Antique Gold Floral Arabesque Divider
+ * Colorful Rose-Gold, Crimson Blossom, Emerald Leaf & Pearl Divider
  */
 export function FloralGoldDivider({ className = '' }) {
   return (
-    <div className={`gold-divider-container ${className}`} aria-hidden="true">
+    <div className={`floral-divider ${className}`} aria-hidden="true">
       <svg
-        viewBox="0 0 400 32"
+        viewBox="0 0 360 36"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="gold-divider-svg"
+        className="floral-divider-svg"
       >
         <defs>
-          <linearGradient id="dividerGoldLine" x1="0" y1="16" x2="400" y2="16" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#AA7A1E" stopOpacity="0" />
-            <stop offset="25%" stopColor="#D4AF37" stopOpacity="0.8" />
-            <stop offset="50%" stopColor="#FFF2B2" />
-            <stop offset="75%" stopColor="#D4AF37" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#AA7A1E" stopOpacity="0" />
+          <linearGradient id="roseGoldLine" x1="0" y1="18" x2="360" y2="18" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#9E5263" stopOpacity="0" />
+            <stop offset="20%" stopColor="#C98A28" stopOpacity="0.85" />
+            <stop offset="50%" stopColor="#8C2442" stopOpacity="1" />
+            <stop offset="80%" stopColor="#C98A28" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="#9E5263" stopOpacity="0" />
           </linearGradient>
         </defs>
+        <line x1="12" y1="18" x2="138" y2="18" stroke="url(#roseGoldLine)" strokeWidth="1.4" />
+        <line x1="222" y1="18" x2="348" y2="18" stroke="url(#roseGoldLine)" strokeWidth="1.4" />
 
-        {/* Center horizontal line */}
-        <line x1="20" y1="16" x2="165" y2="16" stroke="url(#dividerGoldLine)" strokeWidth="1.2" />
-        <line x1="235" y1="16" x2="380" y2="16" stroke="url(#dividerGoldLine)" strokeWidth="1.2" />
-
-        {/* Left scroll vine */}
+        {/* Left & Right Emerald & Rose Leaves */}
         <path
-          d="M135 16C145 11 155 12 165 16C155 20 145 21 135 16Z"
-          fill="#D4AF37"
-          opacity="0.75"
+          d="M140 18C147 10 156 10 163 18C156 26 147 26 140 18Z"
+          fill="#2E8B57"
+          fillOpacity="0.45"
+          stroke="#1E6B40"
+          strokeWidth="1"
         />
-        <circle cx="120" cy="16" r="2" fill="#D4AF37" />
-        <circle cx="105" cy="16" r="1.5" fill="#D4AF37" opacity="0.6" />
-
-        {/* Right scroll vine */}
         <path
-          d="M265 16C255 11 245 12 235 16C245 20 255 21 265 16Z"
-          fill="#D4AF37"
-          opacity="0.75"
+          d="M197 18C204 10 213 10 220 18C213 26 204 26 197 18Z"
+          fill="#2E8B57"
+          fillOpacity="0.45"
+          stroke="#1E6B40"
+          strokeWidth="1"
         />
-        <circle cx="280" cy="16" r="2" fill="#D4AF37" />
-        <circle cx="295" cy="16" r="1.5" fill="#D4AF37" opacity="0.6" />
 
-        {/* Center Medallion (8-pointed star & diamond) */}
-        <g transform="translate(184, 0)">
-          <rect x="8" y="8" width="16" height="16" stroke="#D4AF37" strokeWidth="1.2" fill="none" />
-          <rect x="8" y="8" width="16" height="16" stroke="#FFF2B2" strokeWidth="1.2" fill="none" transform="rotate(45 16 16)" />
-          <circle cx="16" cy="16" r="3" fill="#D4AF37" />
+        {/* Lustrous Pearl & Gold Beads */}
+        <circle cx="128" cy="18" r="3.2" fill="#FFFDFB" stroke="#C98A28" strokeWidth="1" />
+        <circle cx="232" cy="18" r="3.2" fill="#FFFDFB" stroke="#C98A28" strokeWidth="1" />
+
+        {/* Center Crimson-Rose Flower + Gold Pearl */}
+        <g transform="translate(180, 18)">
+          <circle cx="0" cy="-6.5" r="4.8" fill="#E05378" opacity="0.9" />
+          <circle cx="6.5" cy="0" r="4.8" fill="#F28CA3" opacity="0.9" />
+          <circle cx="0" cy="6.5" r="4.8" fill="#E05378" opacity="0.9" />
+          <circle cx="-6.5" cy="0" r="4.8" fill="#F28CA3" opacity="0.9" />
+          <circle cx="4.5" cy="-4.5" r="4" fill="#F7B2C4" opacity="0.85" />
+          <circle cx="-4.5" cy="4.5" r="4" fill="#F7B2C4" opacity="0.85" />
+          <circle cx="0" cy="0" r="3.8" fill="#FFFDF7" stroke="#C98A28" strokeWidth="1.2" />
         </g>
       </svg>
     </div>
@@ -198,156 +195,199 @@ export function FloralGoldDivider({ className = '' }) {
 }
 
 /**
- * Corner Arabesque Filigree for Luxury Frames
+ * Pressed Floral, Ruby-Rose, Emerald Leaf & Pearl Resin Corner Cluster
  */
-export function CornerArabesque({ position = 'top-left', className = '' }) {
-  const transform = {
-    'top-left': 'none',
-    'top-right': 'scale(-1, 1)',
-    'bottom-left': 'scale(1, -1)',
-    'bottom-right': 'scale(-1, -1)',
-  }[position] || 'none';
-
+export function CornerOrnament({ position = 'top-left', className = '' }) {
   return (
-    <div className={`corner-arabesque-wrap corner-${position} ${className}`} aria-hidden="true">
-      <svg
-        width="44"
-        height="44"
-        viewBox="0 0 44 44"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ transform, transformOrigin: '22px 22px' }}
-      >
-        <path
-          d="M3 41V12C3 7 7 3 12 3H41"
-          stroke="#D4AF37"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-        />
-        <path
-          d="M8 36V16C8 11.5 11.5 8 16 8H36"
-          stroke="#C5A059"
-          strokeWidth="0.8"
-          strokeDasharray="2 3"
-        />
-        <path
-          d="M16 16C22 16 26 20 26 26C20 26 16 22 16 16Z"
-          fill="#D4AF37"
-          opacity="0.85"
-        />
-        <circle cx="5" cy="5" r="2.5" fill="#F3E5AB" />
-        <circle cx="28" cy="14" r="1.5" fill="#D4AF37" />
-        <circle cx="14" cy="28" r="1.5" fill="#D4AF37" />
-      </svg>
-    </div>
+    <svg
+      className={`corner-ornament corner-${position} ${className}`}
+      width="88"
+      height="88"
+      viewBox="0 0 96 96"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <defs>
+        <radialGradient id="pearlShade" cx="35%" cy="35%" r="65%">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="65%" stopColor="#FDF4F5" />
+          <stop offset="100%" stopColor="#D6A9B4" />
+        </radialGradient>
+      </defs>
+
+      {/* Organic Gold & Rose Wavy Resin Edge Line */}
+      <path
+        d="M4 88C3 64 6 42 5 22C5 11 11 5 22 5C42 6 64 3 88 4"
+        stroke="#C98A28"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        opacity="0.85"
+      />
+
+      {/* Emerald Foliage & Baby's Breath Sprigs */}
+      <path d="M18 18L38 8M18 18L29 25M18 18L8 40" stroke="#2D7A4F" strokeWidth="1.2" opacity="0.75" />
+      <path d="M14 42L26 52M42 14L52 26" stroke="#C98A28" strokeWidth="1" opacity="0.75" />
+
+      {/* Emerald Leaves */}
+      <path d="M32 10C37 6 43 7 45 11C40 14 35 13 32 10Z" fill="#2E8B57" opacity="0.75" />
+      <path d="M10 32C6 37 7 43 11 45C14 40 13 35 10 32Z" fill="#2E8B57" opacity="0.75" />
+
+      {/* Main Ruby-Rose & Blush Pressed Flower */}
+      <g transform="translate(21, 21)">
+        <circle cx="0" cy="-7.5" r="6.2" fill="#D94B70" opacity="0.9" />
+        <circle cx="7.5" cy="0" r="6.2" fill="#F0829D" opacity="0.9" />
+        <circle cx="0" cy="7.5" r="6.2" fill="#D94B70" opacity="0.9" />
+        <circle cx="-7.5" cy="0" r="6.2" fill="#F0829D" opacity="0.9" />
+        <circle cx="5.2" cy="-5.2" r="5.2" fill="#F7B2C4" opacity="0.85" />
+        <circle cx="-5.2" cy="5.2" r="5.2" fill="#F7B2C4" opacity="0.85" />
+        <circle cx="0" cy="0" r="4.2" fill="url(#pearlShade)" stroke="#C98A28" strokeWidth="0.9" />
+      </g>
+
+      {/* Secondary Coral-Gold Blossom */}
+      <g transform="translate(46, 14)">
+        <circle cx="0" cy="-4.5" r="4.4" fill="#E87A64" opacity="0.88" />
+        <circle cx="4.5" cy="0" r="4.4" fill="#F6B09E" opacity="0.88" />
+        <circle cx="0" cy="4.5" r="4.4" fill="#E87A64" opacity="0.88" />
+        <circle cx="-4.5" cy="0" r="4.4" fill="#F6B09E" opacity="0.88" />
+        <circle cx="0" cy="0" r="2.8" fill="#FFFDF5" stroke="#C98A28" strokeWidth="0.7" />
+      </g>
+
+      {/* Third Blush Blossom along vertical edge */}
+      <g transform="translate(14, 47)">
+        <circle cx="0" cy="-4.5" r="4.4" fill="#E36888" opacity="0.88" />
+        <circle cx="4.5" cy="0" r="4.4" fill="#F7ADC0" opacity="0.88" />
+        <circle cx="0" cy="4.5" r="4.4" fill="#E36888" opacity="0.88" />
+        <circle cx="-4.5" cy="0" r="4.4" fill="#F7ADC0" opacity="0.88" />
+        <circle cx="0" cy="0" r="2.8" fill="#FFFDF5" stroke="#C98A28" strokeWidth="0.7" />
+      </g>
+
+      {/* White Lustrous Pearl Beads & Gold Buds */}
+      <circle cx="33" cy="29" r="5.2" fill="url(#pearlShade)" stroke="#C98A28" strokeWidth="0.7" />
+      <circle cx="11" cy="31" r="4" fill="url(#pearlShade)" stroke="#C98A28" strokeWidth="0.7" />
+      <circle cx="31" cy="10" r="3.8" fill="url(#pearlShade)" stroke="#C98A28" strokeWidth="0.7" />
+      <circle cx="63" cy="11" r="4.4" fill="url(#pearlShade)" stroke="#C98A28" strokeWidth="0.7" />
+      <circle cx="11" cy="64" r="4.4" fill="url(#pearlShade)" stroke="#C98A28" strokeWidth="0.7" />
+
+      {/* Sparkling Gold & Baby's Breath Dots */}
+      <circle cx="53" cy="22" r="2.2" fill="#F5C37E" opacity="0.95" />
+      <circle cx="58" cy="17" r="1.8" fill="#FFFFFF" opacity="0.95" />
+      <circle cx="22" cy="55" r="2.2" fill="#F5C37E" opacity="0.95" />
+      <circle cx="17" cy="59" r="1.8" fill="#FFFFFF" opacity="0.95" />
+      <circle cx="27" cy="42" r="2.4" fill="#E05378" opacity="0.85" />
+    </svg>
+  );
+}
+
+// Keep CornerArabesque as an alias for CornerOrnament so all components get the lush floral corners
+export function CornerArabesque(props) {
+  return <CornerOrnament {...props} />;
+}
+
+/**
+ * Wide Ornate Mughal Mosque Arch / Mihrab Silhouette in Rose-Gold, Gold & Pearl
+ */
+export function MosqueArchCrown({ className = '' }) {
+  return (
+    <svg
+      viewBox="0 0 500 120"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={`mosque-arch-crown ${className}`}
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="archRoyalGrad" x1="0" y1="0" x2="500" y2="120" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#C98A28" stopOpacity="0.22" />
+          <stop offset="30%" stopColor="#C98A28" stopOpacity="0.8" />
+          <stop offset="50%" stopColor="#8C2442" stopOpacity="0.95" />
+          <stop offset="70%" stopColor="#C98A28" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#C98A28" stopOpacity="0.22" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M15 118C15 74 95 52 175 38C215 31 238 18 250 4C262 18 285 31 325 38C405 52 485 74 485 118"
+        stroke="url(#archRoyalGrad)"
+        strokeWidth="1.8"
+      />
+      <path
+        d="M32 118C32 82 105 62 182 48C218 41 238 29 250 15C262 29 282 41 318 48C395 62 468 82 468 118"
+        stroke="url(#archRoyalGrad)"
+        strokeWidth="1.1"
+        strokeDasharray="3 5"
+      />
+      {/* Top Finial Pearl & Ruby Jewel */}
+      <circle cx="250" cy="5" r="4.5" fill="#FFFDFB" stroke="#C98A28" strokeWidth="1.3" />
+      <circle cx="215" cy="30" r="2.8" fill="#E05378" opacity="0.8" />
+      <circle cx="285" cy="30" r="2.8" fill="#E05378" opacity="0.8" />
+    </svg>
   );
 }
 
 /**
- * Hanging Traditional Islamic Lantern (Fanous)
+ * Hanging Moroccan Stained-Glass, Rose-Gold & Pearl Islamic Lantern SVG
  */
 export function HangingLantern({ className = '', style = {} }) {
   return (
-    <div className={`hanging-lantern-assembly ${className}`} style={style} aria-hidden="true">
-      <svg
-        width="60"
-        height="140"
-        viewBox="0 0 60 140"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="lantern-svg"
-      >
-        <defs>
-          <linearGradient id="lanternGold" x1="0" y1="0" x2="60" y2="140" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#FFF2B2" />
-            <stop offset="30%" stopColor="#D4AF37" />
-            <stop offset="70%" stopColor="#996515" />
-            <stop offset="100%" stopColor="#4A3408" />
-          </linearGradient>
-          <radialGradient id="lampFlameGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#FFF9D2" stopOpacity="1" />
-            <stop offset="45%" stopColor="#FFB84D" stopOpacity="0.75" />
-            <stop offset="100%" stopColor="#FF8C00" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-
-        {/* Chain */}
-        <line x1="30" y1="0" x2="30" y2="45" stroke="#D4AF37" strokeWidth="1.5" strokeDasharray="3 3" />
-
-        {/* Top Ring */}
-        <circle cx="30" cy="47" r="4.5" stroke="url(#lanternGold)" strokeWidth="1.5" fill="none" />
-
-        {/* Dome Cap */}
-        <path
-          d="M20 58C20 52 24 49 30 49C36 49 40 52 40 58H20Z"
-          fill="url(#lanternGold)"
-        />
-        <rect x="18" y="58" width="24" height="4" rx="1" fill="#C5A059" />
-
-        {/* Lantern Glass Body */}
-        <path
-          d="M17 62L22 100H38L43 62H17Z"
-          fill="rgba(10, 46, 32, 0.75)"
-          stroke="url(#lanternGold)"
-          strokeWidth="1.5"
-        />
-
-        {/* Warm Internal Glowing Flame */}
-        <circle cx="30" cy="80" r="14" fill="url(#lampFlameGlow)" className="lantern-flicker-flame" />
-        <ellipse cx="30" cy="80" rx="3" ry="6" fill="#FFFDF0" />
-
-        {/* Islamic Geometric Lattice on Glass */}
-        <line x1="30" y1="62" x2="30" y2="100" stroke="#D4AF37" strokeWidth="0.8" opacity="0.7" />
-        <line x1="22" y1="81" x2="38" y2="81" stroke="#D4AF37" strokeWidth="0.8" opacity="0.7" />
-        <path d="M24 72L36 90M36 72L24 90" stroke="#D4AF37" strokeWidth="0.6" opacity="0.5" />
-
-        {/* Lantern Base */}
-        <path d="M20 100H40L37 108H23L20 100Z" fill="url(#lanternGold)" />
-        <circle cx="30" cy="112" r="3" fill="#D4AF37" />
-      </svg>
-    </div>
-  );
-}
-
-/**
- * Mosque Mihrab / Arch Crown
- */
-export function MosqueArchCrown({ className = '', width = 120, height = 48 }) {
-  return (
-    <div className={`mosque-arch-crown ${className}`} aria-hidden="true">
-      <svg
-        width={width}
-        height={height}
-        viewBox="0 0 120 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <linearGradient id="archGoldGrad" x1="0" y1="24" x2="120" y2="24" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#AA7A1E" stopOpacity="0.2" />
-            <stop offset="50%" stopColor="#D4AF37" />
-            <stop offset="100%" stopColor="#AA7A1E" stopOpacity="0.2" />
-          </linearGradient>
-        </defs>
-        {/* Pointed Islamic Arch Outline */}
-        <path
-          d="M10 46C20 46 35 44 48 34C54 29 57 20 60 10C63 20 66 29 72 34C85 44 100 46 110 46"
-          stroke="url(#archGoldGrad)"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-        />
-        {/* Crescent Finial at Top */}
-        <circle cx="60" cy="6" r="3.5" fill="#FFF2B2" />
-        <polygon points="60,0 61,3 64,3.5 61.5,5 62,8 60,6.5 58,8 58.5,5 56,3.5 59,3" fill="#D4AF37" />
-      </svg>
-    </div>
+    <svg
+      viewBox="0 0 60 160"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={`hanging-lantern ${className}`}
+      style={style}
+      aria-hidden="true"
+    >
+      <defs>
+        <radialGradient id="lanternWarmGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#FFF6D6" stopOpacity="0.95" />
+          <stop offset="50%" stopColor="#F59E0B" stopOpacity="0.55" />
+          <stop offset="100%" stopColor="#E11D48" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <line
+        x1="30"
+        y1="0"
+        x2="30"
+        y2="52"
+        stroke="#C98A28"
+        strokeWidth="1.5"
+        strokeDasharray="3 3"
+      />
+      <circle cx="30" cy="55" r="3.8" fill="#FFFDFB" stroke="#C98A28" strokeWidth="1.2" />
+      <path
+        d="M18 72C18 63 24 58 30 56C36 58 42 63 42 72H18Z"
+        fill="rgba(224, 83, 120, 0.35)"
+        stroke="#8C2442"
+        strokeWidth="1.3"
+      />
+      <path
+        d="M15 72H45L40 118H20L15 72Z"
+        fill="rgba(255, 245, 247, 0.7)"
+        stroke="#C98A28"
+        strokeWidth="1.4"
+      />
+      <circle cx="30" cy="95" r="14" fill="url(#lanternWarmGlow)" />
+      <path
+        d="M23 118V88C23 82 26 78 30 76C34 78 37 82 37 88V118"
+        stroke="#8C2442"
+        strokeWidth="1"
+        opacity="0.85"
+      />
+      <path
+        d="M20 118H40L36 128H24L20 118Z"
+        fill="rgba(201, 138, 40, 0.45)"
+        stroke="#8C2442"
+        strokeWidth="1.3"
+      />
+      <circle cx="30" cy="133" r="3" fill="#E05378" stroke="#C98A28" strokeWidth="0.9" />
+    </svg>
   );
 }
 
 /**
  * Couple Monogram Royal Shield
  */
-export function RoyalMonogramBadge({ monogram = "C & K" }) {
+export function RoyalMonogramBadge({ monogram = 'C & K' }) {
   return (
     <div className="royal-monogram-badge" aria-label={`Monogram ${monogram}`}>
       <div className="monogram-outer-ring">
@@ -360,7 +400,7 @@ export function RoyalMonogramBadge({ monogram = "C & K" }) {
 }
 
 /**
- * Crisp Vector Icons for UI Controls & Timeline
+ * Crisp Vector Icons for UI Controls
  */
 export function CalendarIcon({ size = 20, className = '' }) {
   return (
