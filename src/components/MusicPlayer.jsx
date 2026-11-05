@@ -92,7 +92,8 @@ class AmbientMusicSynthesizer {
  * Section 11: Background Music Player
  * Unobtrusive luxury floating audio badge with instant play/pause
  */
-export default function MusicPlayer({ config, autoPlayTriggered = false }) {
+export default function MusicPlayer({ config, autoPlayTriggered = false, autoPlay = false }) {
+  const shouldAutoPlay = autoPlayTriggered || autoPlay;
   const { music } = config;
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
@@ -111,11 +112,11 @@ export default function MusicPlayer({ config, autoPlayTriggered = false }) {
 
   // Handle auto-play triggered after user interaction on OpeningScreen
   useEffect(() => {
-    if (autoPlayTriggered && !hasInteracted) {
+    if (shouldAutoPlay && !hasInteracted) {
       setHasInteracted(true);
       startPlayback();
     }
-  }, [autoPlayTriggered]);
+  }, [shouldAutoPlay]);
 
   const startPlayback = () => {
     if (!music.enabled) return;
