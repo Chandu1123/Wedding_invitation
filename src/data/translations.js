@@ -8,19 +8,20 @@
 export const translations = {
   en: {
     langName: "English",
+    langShort: "EN",
     langCode: "en",
     bismillahArabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
     bismillahTranslation: "In the Name of Allah, the Most Gracious, the Most Merciful",
     salamArabic: "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ",
     salamTransliteration: "Assalamu Alaikum Wa Rahmatullahi Wa Barakatuh",
     salamTranslation: "May the peace, mercy, and blessings of Allah be upon you",
-    
+
     // Header & Badges
     invitationBadge: "Royal Wedding Invitation",
     holyUnionBadge: "Sacred Islamic Matrimony",
     nikahWalimaTitle: "Nikah & Walima Celebration",
     weddingSubtitle: "A Blessed Covenant of Faith, Love & Companionship",
-    
+
     // Couple Names & Details
     groomTitle: "The Groom",
     brideTitle: "The Bride",
@@ -36,7 +37,8 @@ export const translations = {
     // Date & Time (To be announced)
     dateTimeBadge: "Date & Time Announcement",
     dateTimeTitle: "Dates & Timings to be Announced Soon",
-    dateTimeSubtext: "With prayers to the Almighty, the auspicious date and time of the Nikah ceremony will be finalized and announced shortly (Insha'Allah).",
+    dateTimeSubtext:
+      "With prayers to Almighty Allah, the auspicious date and time of the Nikah ceremony will be finalized and shared shortly (Insha'Allah).",
     datesToAnnounce: "Date & Auspicious Muhurtham",
     datesToAnnounceValue: "To Be Announced (Insha'Allah)",
     timingsToAnnounce: "Ceremony & Reception Timings",
@@ -48,45 +50,54 @@ export const translations = {
     venueCity: "Hindupur",
     venueState: "Andhra Pradesh, India",
     venueFullAddress: "Hindupur, Sri Sathya Sai District, Andhra Pradesh",
-    venueDirectionsBtn: "View Hindupur on Google Maps",
+    venueDirectionsBtn: "Open Hindupur in Google Maps",
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Hindupur+Andhra+Pradesh",
 
     // Quranic Verse & Dua
     quranBadge: "Holy Qur'an — Surah Ar-Rum (30:21)",
-    quranArabic: "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً",
-    quranTranslation: "“And of His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy.”",
-    
+    quranArabic:
+      "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً",
+    quranTranslation:
+      "“And of His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy.”",
+
     sunnahBadge: "Prophetic Wedding Blessing Dua",
     sunnahArabic: "بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ",
-    sunnahTransliteration: "Barakallahu lakuma wa baraka 'alaykuma wa jama'a baynakuma fee khayr.",
-    sunnahTranslation: "“May Allah bless you both, shower His blessings upon you, and unite you both in goodness and harmony.”",
+    sunnahTransliteration:
+      "Barakallahu lakuma wa baraka 'alaykuma wa jama'a baynakuma fee khayr.",
+    sunnahTranslation:
+      "“May Allah bless you both, shower His blessings upon you, and unite you both in goodness and harmony.”",
     sunnahReference: "(Sunan Abi Dawud & Jami` at-Tirmidhi)",
 
     // Family Invitation
-    familyInvitationLead: "With the infinite blessings of Almighty Allah (SWT) and the cherished love of our elders and families, we cordially invite you and your family to join us in celebrating the holy wedding of our beloved children.",
+    familyInvitationLead:
+      "With the infinite blessings of Almighty Allah (SWT) and the cherished love of our elders and families, we cordially invite you and your family to celebrate the holy wedding of our beloved children.",
     cordiallyInvitedBy: "Cordially Invited With Love & Respect By:",
-    bothFamiliesNote: "Both the Sarithala & Vuluvalapalli families warmly request your presence and heartfelt prayers.",
+    bothFamiliesNote:
+      "Both the Sarithala & Vuluvalapalli families warmly request your gracious presence and heartfelt prayers.",
 
     // Interactive Controls & Buttons
-    openInvitationBtn: "Open Royal Invitation",
+    openInvitationBtn: "Tap to Open Book",
     selectLanguageModalTitle: "Choose Your Language",
-    selectLanguageModalSubtitle: "Please select your preferred language to experience the invitation",
-    switchLanguage: "Change Language",
-    viewModeBook: "3D Royal Book",
-    viewModeScroll: "Royal Scroll View",
+    selectLanguageModalSubtitle:
+      "Please select your preferred language to view the wedding invitation",
+    switchLanguage: "Language",
     pageOf: "Page",
-    prevPage: "← Previous",
+    prevPage: "← Prev",
     nextPage: "Next →",
     bookCoverTab: "Cover",
-    spread1Tab: "Pages 1–2 • Ceremony",
-    spread2Tab: "Pages 3–4 • Venue & Duas",
-    closeBookBtn: "Close Cover ↺",
+    spread1Tab: "Blessings & Couple",
+    spread2Tab: "Venue & Duas",
+    mobileCoverTab: "Cover",
+    mobileCoupleTab: "Blessings",
+    mobileVenueTab: "Venue",
+    closeBookBtn: "Cover ↺",
 
     // Share & Actions
     shareOnWhatsApp: "Share on WhatsApp",
     copyLink: "Copy Link",
     linkCopied: "✓ Link Copied!",
-    whatsappShareText: "✨ *Bismillahir Rahmanir Raheem* ✨\n\nAssalamu Alaikum!\n\nWe joyfully invite you and your family to celebrate the blessed Wedding of:\n\n🤵 *Sarithala Chandu*\n   & \n👰 *Vuluvalapalli Kulsum*\n\n📍 Venue: *Hindupur, Andhra Pradesh*\n📅 Date & Time: *To be announced soon (Insha'Allah)*\n\nKindly view our interactive digital invitation here:\n",
+    whatsappShareText:
+      "✨ *Bismillahir Rahmanir Raheem* ✨\n\nAssalamu Alaikum!\n\nWe joyfully invite you and your family to celebrate the blessed Wedding of:\n\n🤵 *Sarithala Chandu*\n   & \n👰 *Vuluvalapalli Kulsum*\n\n📍 Venue: *Hindupur, Andhra Pradesh*\n📅 Date & Time: *To be announced soon (Insha'Allah)*\n\nKindly view our interactive 3D digital invitation here:\n",
 
     // Music & Footer
     musicOn: "Music On",
@@ -96,6 +107,7 @@ export const translations = {
 
   te: {
     langName: "తెలుగు",
+    langShort: "తెలుగు",
     langCode: "te",
     bismillahArabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
     bismillahTranslation: "అత్యంత దయామయుడు, పరమ కృపాకరుడైన అల్లాహ్ పేరిట ప్రారంభిస్తున్నాను",
@@ -118,13 +130,14 @@ export const translations = {
     brideParents: "శ్రీ మరియు శ్రీమతి వులువలపల్లి గార్ల కుమార్తె",
     groomFamily: "సరితాల కుటుంబం",
     brideFamily: "వులువలపల్లి కుటుంబం",
-    quboolHai: "ఖబూల్ హై (అంగీకారము)",
+    quboolHai: "ఖబూల్ హై",
     quboolHaiArabic: "قَبِلْتُ",
 
     // Date & Time (To be announced)
-    dateTimeBadge: "తేదీ మరియు సమయం ప్రకటన",
+    dateTimeBadge: "తేదీ & సమయం ప్రకటన",
     dateTimeTitle: "తేదీ మరియు సమయం త్వరలో తెలియజేయబడును",
-    dateTimeSubtext: "సర్వశక్తిమంతుడైన అల్లాహ్ దయతో, నికాహ్ మహోత్సవ శుభ ముహూర్తం మరియు సమయం వివరాలు త్వరలోనే ఖరారు చేసి తెలియజేస్తాము (ఇన్షా అల్లాహ్).",
+    dateTimeSubtext:
+      "సర్వశక్తిమంతుడైన అల్లాహ్ దయతో, నికాహ్ మహోత్సవ శుభ ముహూర్తం మరియు సమయం వివరాలు త్వరలోనే ఖరారు చేసి తెలియజేస్తాము (ఇన్షా అల్లాహ్).",
     datesToAnnounce: "శుభ వివాహ ముహూర్తం",
     datesToAnnounceValue: "త్వరలోనే వెల్లడిస్తాము (ఇన్షా అల్లాహ్)",
     timingsToAnnounce: "నికాహ్ & రిసెప్షన్ సమయాలు",
@@ -141,40 +154,48 @@ export const translations = {
 
     // Quranic Verse & Dua
     quranBadge: "పవిత్ర ఖురాన్ — సూరా అర్-రూమ్ (30:21)",
-    quranArabic: "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً",
-    quranTranslation: "“ఆయన సూచనలలో ఒకటి ఏమిటంటే, మీరు వారి వద్ద మనశ్శాంతిని పొందేందుకు మీ నుండే మీ సహచరులను సృష్టించాడు; మరియు మీ మధ్య ప్రేమను, కారుణ్యాన్ని నింపాడు.”",
+    quranArabic:
+      "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً",
+    quranTranslation:
+      "“ఆయన సూచనలలో ఒకటి ఏమిటంటే, మీరు వారి వద్ద మనశ్శాంతిని పొందేందుకు మీ నుండే మీ సహచరులను సృష్టించాడు; మరియు మీ మధ్య ప్రేమను, కారుణ్యాన్ని నింపాడు.”",
 
-    sunnahBadge: "ప్రవక్త ముహమ్మద్ (సస) వారి వివాహ ఆశీర్వాద దుఆ",
+    sunnahBadge: "ప్రవక్త వారి వివాహ ఆశీర్వాద దుఆ",
     sunnahArabic: "بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ",
     sunnahTransliteration: "బారకల్లాహు లక వ బారక అలైకుమ వ జమఅ బైనకుమా ఫీ ఖైర్.",
-    sunnahTranslation: "“అల్లాహ్ మీ ఇరువురిపై శుభాలు కురిపించుగాక, మీ జీవితాలలో బరకత్ ప్రసాదించుగాక, మరియు మీరిద్దరినీ మేలులో ఐక్యం చేయుగాక.”",
+    sunnahTranslation:
+      "“అల్లాహ్ మీ ఇరువురిపై శుభాలు కురిపించుగాక, మీ జీవితాలలో బరకత్ ప్రసాదించుగాక, మరియు మీరిద్దరినీ మేలులో ఐక్యం చేయుగాక.”",
     sunnahReference: "(సునన్ అబీ దావూద్ & తిర్మిజి)",
 
     // Family Invitation
-    familyInvitationLead: "సర్వలోకాల అధిపతియైన అల్లాహ్ అనుగ్రహంతో మరియు మా పెద్దలు, బంధుమిత్రుల ఆశీస్సులతో, మా ప్రియమైన సంతానం యొక్క పవిత్ర వివాహ మహోత్సవానికి మిమ్మల్ని మరియు మీ కుటుంబాన్ని సాదరంగా ఆహ్వానిస్తున్నాము.",
+    familyInvitationLead:
+      "సర్వలోకాల అధిపతియైన అల్లాహ్ అనుగ్రహంతో మరియు మా పెద్దల ఆశీస్సులతో, మా ప్రియమైన సంతానం యొక్క పవిత్ర వివాహ మహోత్సవానికి మిమ్మల్ని మరియు మీ కుటుంబాన్ని సాదరంగా ఆహ్వానిస్తున్నాము.",
     cordiallyInvitedBy: "సవినయ ఆహ్వానంతో:",
-    bothFamiliesNote: "సరితాల మరియు వులువలపల్లి కుటుంబ సభ్యులందరి తరఫున మీ విచ్చేతను, ఆశీస్సులను మనసారా కోరుకుంటున్నాము.",
+    bothFamiliesNote:
+      "సరితాల మరియు వులువలపల్లి కుటుంబ సభ్యులందరి తరఫున మీ విచ్చేతను, ఆశీస్సులను మనసారా కోరుకుంటున్నాము.",
 
     // Interactive Controls & Buttons
-    openInvitationBtn: "ఆహ్వాన పత్రికను తెరవండి",
+    openInvitationBtn: "ఆహ్వాన పత్రిక తెరవండి",
     selectLanguageModalTitle: "మీ భాషను ఎంచుకోండి",
-    selectLanguageModalSubtitle: "ఆహ్వాన పత్రికను చదవడానికి మీకిష్టమైన భాషను ఎంపిక చేసుకోండి",
-    switchLanguage: "భాష మార్చండి",
-    viewModeBook: "3D రాయల్ పుస్తకం",
-    viewModeScroll: "సాధారణ వీక్షణ",
+    selectLanguageModalSubtitle:
+      "ఆహ్వాన పత్రికను చదవడానికి మీకిష్టమైన భాషను ఎంపిక చేసుకోండి",
+    switchLanguage: "భాష",
     pageOf: "పేజీ",
-    prevPage: "← మునుపటిది",
-    nextPage: "తరువాతిది →",
+    prevPage: "← వెనుకకు",
+    nextPage: "తరువాత →",
     bookCoverTab: "ముఖచిత్రం",
-    spread1Tab: "పేజీలు 1–2 • వివాహం",
-    spread2Tab: "పేజీలు 3–4 • వేదిక & దుఆలు",
-    closeBookBtn: "పుస్తకాన్ని మూయండి ↺",
+    spread1Tab: "వధూవరులు & ఆశీస్సులు",
+    spread2Tab: "వేదిక & దుఆలు",
+    mobileCoverTab: "కవర్",
+    mobileCoupleTab: "వధూవరులు",
+    mobileVenueTab: "వేదిక",
+    closeBookBtn: "కవర్ ↺",
 
     // Share & Actions
-    shareOnWhatsApp: "వాట్సాప్‌లో పంపండి",
+    shareOnWhatsApp: "వాట్సాప్‌లో షేర్ చేయండి",
     copyLink: "లింక్ కాపీ చేయండి",
     linkCopied: "✓ లింక్ కాపీ చేయబడింది!",
-    whatsappShareText: "✨ *బిస్మిల్లాహిర్ రహ్మానిర్ రహీమ్* ✨\n\nఅస్సలాము అలైకుమ్!\n\nమా ప్రియమైన వారి పవిత్ర వివాహ వేడుకకు మిమ్మల్ని మరియు మీ కుటుంబాన్ని ఆహ్వానిస్తున్నాము:\n\n🤵 *సరితాల చందు*\n   & \n👰 *వులువలపల్లి కుల్సుమ్*\n\n📍 వివాహ వేదిక: *హిందూపురం, ఆంధ్రప్రదేశ్*\n📅 తేదీ మరియు సమయం: *త్వరలో తెలియజేయబడును (ఇన్షా అల్లాహ్)*\n\nమా డిజిటల్ ఆహ్వాన పత్రికను ఇక్కడ వీక్షించండి:\n",
+    whatsappShareText:
+      "✨ *బిస్మిల్లాహిర్ రహ్మానిర్ రహీమ్* ✨\n\nఅస్సలాము అలైకుమ్!\n\nమా ప్రియమైన వారి పవిత్ర వివాహ వేడుకకు మిమ్మల్ని మరియు మీ కుటుంబాన్ని ఆహ్వానిస్తున్నాము:\n\n🤵 *సరితాల చందు*\n   & \n👰 *వులువలపల్లి కుల్సుమ్*\n\n📍 వివాహ వేదిక: *హిందూపురం, ఆంధ్రప్రదేశ్*\n📅 తేదీ మరియు సమయం: *త్వరలో తెలియజేయబడును (ఇన్షా అల్లాహ్)*\n\nమా డిజిటల్ ఆహ్వాన పత్రికను ఇక్కడ వీక్షించండి:\n",
 
     // Music & Footer
     musicOn: "సంగీతం ఆన్",
@@ -184,6 +205,7 @@ export const translations = {
 
   hi: {
     langName: "हिन्दी",
+    langShort: "हिन्दी",
     langCode: "hi",
     bismillahArabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
     bismillahTranslation: "अल्लाह के नाम से शुरू, जो बड़ा मेहरबान और निहायत रहम वाला है",
@@ -203,7 +225,7 @@ export const translations = {
     groomName: "सरिताला चंदू",
     brideName: "वुलुवलपल्ली कुलसुम",
     groomParents: "जनाब व बेगम सरिताला के चहेते फ़रज़ंद",
-    brideParents: "जनाब व बेगम वुलुवलपल्ली की नूर-ए-चश्म (लाडली बेटी)",
+    brideParents: "जनाब व बेगम वुलुवलपल्ली की लाडली बेटी",
     groomFamily: "सरिताला ख़ानदान",
     brideFamily: "वुलुवलपल्ली ख़ानदान",
     quboolHai: "क़ुबूल है",
@@ -212,7 +234,8 @@ export const translations = {
     // Date & Time (To be announced)
     dateTimeBadge: "तारीख़ व वक्त का एलान",
     dateTimeTitle: "तारीख़ और वक्त का एलान जल्द किया जाएगा",
-    dateTimeSubtext: "अल्लाह तआला के करम से, मुबारक निकाह की तारीख़ और औक़ात बहुत जल्द तय करके आप तक पहुँचाई जाएगी (इंशाअल्लाह)।",
+    dateTimeSubtext:
+      "अल्लाह तआला के करम से, मुबारक निकाह की तारीख़ और औक़ात बहुत जल्द तय करके आप तक पहुँचाई जाएगी (इंशाअल्लाह)।",
     datesToAnnounce: "मुबारक निकाह की तारीख़",
     datesToAnnounceValue: "जल्द एलान होगा (इंशाअल्लाह)",
     timingsToAnnounce: "निकाह व वलीमा के औक़ात",
@@ -220,7 +243,7 @@ export const translations = {
 
     // Venue (Hindupur)
     venueBadge: "समारोह स्थल",
-    venueTitle: "मुकाम (स्थान)",
+    venueTitle: "मुकाम",
     venueCity: "हिन्दुपुर",
     venueState: "आंध्र प्रदेश, भारत",
     venueFullAddress: "हिन्दुपुर, श्री सत्य साई ज़िला, आंध्र प्रदेश",
@@ -229,40 +252,47 @@ export const translations = {
 
     // Quranic Verse & Dua
     quranBadge: "पवित्र क़ुरआन — सूरह अर-रूम (30:21)",
-    quranArabic: "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً",
-    quranTranslation: "“और उसकी निशानियों में से यह है कि उसने तुम्हारे लिए तुम्हारी ही जिन्स से जोड़े बनाए ताकि तुम उनके पास सुकून पाओ; और तुम्हारे दरमियान मोहब्बत और रहमत पैदा कर दी।”",
+    quranArabic:
+      "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً",
+    quranTranslation:
+      "“और उसकी निशानियों में से यह है कि उसने तुम्हारे लिए तुम्हारी ही जिन्स से जोड़े बनाए ताकि तुम उनके पास सुकून पाओ; और तुम्हारे दरमियान मोहब्बत और रहमत पैदा कर दी।”",
 
-    sunnahBadge: "प्यारे नबी (सल्लल्लाहु अलैहि वसल्लम) की मसनून निकाह दुआ",
+    sunnahBadge: "मसनून निकाह दुआ",
     sunnahArabic: "بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ",
     sunnahTransliteration: "बारकाल्लाहु लका व बारका अलैकुमा व जमअ बयनकुमा फ़ी ख़ैर।",
-    sunnahTranslation: "“अल्लाह तुम दोनों को बरकत अता फरमाए, तुम पर अपनी रहमतें नाज़िल फरमाए, और तुम दोनों को भलाई के साथ एकजुट रखे।”",
+    sunnahTranslation:
+      "“अल्लाह तुम दोनों को बरकत अता फरमाए, तुम पर अपनी रहमतें नाज़िल फरमाए, और तुम दोनों को भलाई के साथ एकजुट रखे।”",
     sunnahReference: "(सुनन अबू दाऊद व जामी तिर्मिज़ी)",
 
     // Family Invitation
-    familyInvitationLead: "अल्लाह तआला के फज़्ल-ओ-करम और बुज़ुर्गों की दुआओं के साए में, हम आपको और आपके पूरे ख़ानदान को हमारे अज़ीज़ बच्चों के पवित्र निकाह समारोह में शिरकत करने की दिली दावत पेश करते हैं।",
+    familyInvitationLead:
+      "अल्लाह तआला के फज़्ल-ओ-करम और बुज़ुर्गों की दुआओं के साए में, हम आपको और आपके पूरे ख़ानदान को हमारे अज़ीज़ बच्चों के पवित्र निकाह समारोह में शिरकत करने की दिली दावत पेश करते हैं।",
     cordiallyInvitedBy: "मुंतज़िर-ए-करम (हार्दिक निमंत्रक):",
-    bothFamiliesNote: "सरिताला और वुलुवलपल्ली ख़ानदान की जानिब से आप सभी की तशरीफ़आवरी और दुआओं के ख़्वाहिशमंद हैं।",
+    bothFamiliesNote:
+      "सरिताला और वुलुवलपल्ली ख़ानदान की जानिब से आप सभी की तशरीफ़आवरी और दुआओं के ख़्वाहिशमंद हैं।",
 
     // Interactive Controls & Buttons
     openInvitationBtn: "दावतनामा खोलें",
     selectLanguageModalTitle: "अपनी पसंदीदा भाषा चुनें",
     selectLanguageModalSubtitle: "दावतनामा देखने के लिए कृपया भाषा का चयन करें",
-    switchLanguage: "भाषा बदलें",
-    viewModeBook: "3D शाही किताब",
-    viewModeScroll: "आम नज़ारा",
+    switchLanguage: "भाषा",
     pageOf: "सफ़ा",
-    prevPage: "← पिछला सफ़ा",
-    nextPage: "अगला सफ़ा →",
-    bookCoverTab: "गिलाफ (कवर)",
-    spread1Tab: "सफ़ा 1–2 • निकाह",
-    spread2Tab: "सफ़ा 3–4 • मुकाम व दुआएँ",
-    closeBookBtn: "किताब बंद करें ↺",
+    prevPage: "← पिछला",
+    nextPage: "अगला →",
+    bookCoverTab: "कवर",
+    spread1Tab: "दूल्हा-दुल्हन व दुआएँ",
+    spread2Tab: "मुकाम व निकाह दुआ",
+    mobileCoverTab: "कवर",
+    mobileCoupleTab: "दूल्हा-दुल्हन",
+    mobileVenueTab: "मुकाम",
+    closeBookBtn: "कवर ↺",
 
     // Share & Actions
     shareOnWhatsApp: "व्हाट्सएप पर शेयर करें",
     copyLink: "लिंक कॉपी करें",
     linkCopied: "✓ लिंक कॉपी हो गया!",
-    whatsappShareText: "✨ *बिस्मिल्लाहिर रहमानिर रहीम* ✨\n\nअस्सलाम वालेकुम!\n\nहम आपको और आपके परिवार को इस मुबारक निकाह में शामिल होने की पुरख़ुलूस दावत देते हैं:\n\n🤵 *सरिताला चंदू*\n   व \n👰 *वुलुवलपल्ली कुलसुम*\n\n📍 मुकाम: *हिन्दुपुर, आंध्र प्रदेश*\n📅 तारीख़ व वक्त: *जल्द एलान किया जाएगा (इंशाअल्लाह)*\n\nहमारा डिजिटल दावतनामा यहाँ देखें:\n",
+    whatsappShareText:
+      "✨ *बिस्मिल्लाहिर रहमानिर रहीम* ✨\n\nअस्सलाम वालेकुम!\n\nहम आपको और आपके परिवार को इस मुबारक निकाह में शामिल होने की पुरख़ुलूस दावत देते हैं:\n\n🤵 *सरिताला चंदू*\n   व \n👰 *वुलुवलपल्ली कुलसुम*\n\n📍 मुकाम: *हिन्दुपुर, आंध्र प्रदेश*\n📅 तारीख़ व वक्त: *जल्द एलान किया जाएगा (इंशाअल्लाह)*\n\nहमारा डिजिटल दावतनामा यहाँ देखें:\n",
 
     // Music & Footer
     musicOn: "म्यूज़िक चालू",

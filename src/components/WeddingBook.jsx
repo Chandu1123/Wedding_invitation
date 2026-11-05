@@ -545,7 +545,7 @@ export default function WeddingBook({
             }`}
             onClick={() => handleGoToPage(0)}
           >
-            📖 {t.bookCoverTab}
+            📖 {isMobile ? t.mobileCoverTab : t.bookCoverTab}
           </button>
           <button
             type="button"
@@ -556,7 +556,7 @@ export default function WeddingBook({
             }`}
             onClick={() => handleGoToPage(1)}
           >
-            ✨ {t.spread1Tab}
+            ✨ {isMobile ? t.mobileCoupleTab : t.spread1Tab}
           </button>
           <button
             type="button"
@@ -567,7 +567,7 @@ export default function WeddingBook({
             }`}
             onClick={() => handleGoToPage(2)}
           >
-            📍 {t.spread2Tab}
+            📍 {isMobile ? t.mobileVenueTab : t.spread2Tab}
           </button>
         </div>
 
@@ -580,19 +580,21 @@ export default function WeddingBook({
               title="Change Language / భాషను మార్చండి / भाषा बदलें"
             >
               <span>🌐</span>
-              <span>{t.langName}</span>
+              <span>{isMobile ? t.langShort : t.langName}</span>
             </button>
           )}
 
-          <button
-            type="button"
-            className="whatsapp-top-btn"
-            onClick={handleShareOnWhatsApp}
-            title="Share invitation on WhatsApp"
-          >
-            <WhatsAppIcon size={14} />
-            <span>Share</span>
-          </button>
+          {!isMobile && (
+            <button
+              type="button"
+              className="whatsapp-top-btn"
+              onClick={handleShareOnWhatsApp}
+              title="Share invitation on WhatsApp"
+            >
+              <WhatsAppIcon size={14} />
+              <span>Share</span>
+            </button>
+          )}
         </div>
       </header>
 
@@ -795,9 +797,9 @@ export default function WeddingBook({
         {/* Page Indicator Dots */}
         <div className="book-spread-nav" role="tablist">
           {[
-            { idx: 0, label: t.bookCoverTab },
-            { idx: 1, label: isMobile ? 'Couple' : 'Inside Spread 📖' },
-            ...(isMobile ? [{ idx: 2, label: t.venueCity }] : []),
+            { idx: 0, label: isMobile ? (t.mobileCoverTab || t.bookCoverTab) : t.bookCoverTab },
+            { idx: 1, label: isMobile ? (t.mobileCoupleTab || 'Couple') : 'Inside Spread 📖' },
+            ...(isMobile ? [{ idx: 2, label: t.mobileVenueTab || t.venueCity }] : []),
           ].map((item, i) => {
             const isSelected = isMobile
               ? mobilePage === item.idx
