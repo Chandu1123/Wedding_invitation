@@ -677,7 +677,7 @@
 }
 
 /* ==========================================================================
-   PHASE 2: INSIDE THE PALACE COURTYARD (3-ARCH DARBAR & SHAHI FARMAN SCROLL)
+   PHASE 2: INSIDE THE PALACE COURTYARD (FULL UNFURLING SHAHI FARMAN SCROLL)
    ========================================================================== */
 
 .shahi-courtyard-interior {
@@ -685,10 +685,9 @@
   z-index: 30;
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: 260px minmax(0, 1fr) 260px;
-  gap: 1rem;
+  display: flex;
   align-items: center;
+  justify-content: center;
   opacity: 0;
   transform: scale(0.94);
   transition:
@@ -701,194 +700,14 @@
   transform: scale(1);
 }
 
-/* Desktop Left & Right Flanking Jharokha Arch Windows */
-.jharokha-side-wing {
-  height: min(76dvh, 570px);
-  background:
-    radial-gradient(circle at 50% 15%, rgba(255, 255, 255, 0.94) 0%, transparent 55%),
-    linear-gradient(165deg, #fff9f5 0%, #fde2ec 55%, #f7cbd9 100%);
-  border: 2.5px solid #d4941c;
-  border-radius: 120px 120px 20px 20px;
-  padding: 1.2rem 0.9rem 1rem;
-  box-shadow:
-    0 18px 42px rgba(0, 0, 0, 0.42),
-    inset 0 0 22px rgba(255, 255, 255, 0.8);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-}
-
-.wing-arch-header {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.22rem 0.7rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #9b1b47 0%, #6b0f2b 100%);
-  border: 1px solid #f5c14e;
-  color: #fffdf5;
-  font-family: var(--font-sans);
-  font-size: 0.62rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.wing-portrait-mini {
-  width: 130px;
-  height: 150px;
-  border-radius: 70px 70px 16px 16px;
-  border: 2.5px solid #d4941c;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(107, 15, 43, 0.28);
-}
-
-.wing-couple-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-}
-
-.wing-couple-title {
-  font-family: var(--font-script);
-  font-size: 1.45rem;
-  color: var(--ink-900);
-  line-height: 1.1;
-}
-
-.wing-amp {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 800;
-  color: var(--ruby-royal);
-  font-size: 0.9rem;
-}
-
-.wing-family-sub {
-  font-family: var(--font-serif);
-  font-size: 0.76rem;
-  font-weight: 700;
-  color: var(--emerald-royal);
-}
-
-.btn-wing-petals {
-  width: 100%;
-  padding: 0.45rem 0.65rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #9b1b47 0%, #c92a5d 100%);
-  border: 1.5px solid #f5c14e;
-  color: #fffdf5;
-  font-family: var(--font-sans);
-  font-size: 0.68rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(155, 27, 71, 0.3);
-  transition: transform 0.2s ease;
-}
-
-.btn-wing-petals:hover {
-  transform: translateY(-1.5px);
-}
-
-.wing-venue-box,
-.wing-date-box {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1.5px solid rgba(212, 148, 28, 0.55);
-  border-radius: 16px;
-  padding: 0.65rem 0.6rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.22rem;
-}
-
-.wing-pin-icon {
-  font-size: 1.25rem;
-}
-
-.wing-venue-city {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--ink-900);
-}
-
-.wing-venue-state {
-  font-family: var(--font-serif);
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--ink-700);
-  line-height: 1.25;
-}
-
-.btn-wing-maps {
-  display: inline-block;
-  margin-top: 0.2rem;
-  padding: 0.32rem 0.75rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #0d5c46 0%, #073b2a 100%);
-  border: 1px solid #f5c14e;
-  color: #fffdf5;
-  font-family: var(--font-sans);
-  font-size: 0.64rem;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.wing-date-badge {
-  font-family: var(--font-sans);
-  font-size: 0.6rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: var(--ruby-royal);
-}
-
-.wing-date-title {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: var(--ink-900);
-  line-height: 1.2;
-}
-
-.wing-date-pill {
-  padding: 0.18rem 0.6rem;
-  border-radius: 999px;
-  background: #fdf0c4;
-  border: 1px dashed #d4941c;
-  color: var(--ink-900);
-  font-family: var(--font-sans);
-  font-size: 0.62rem;
-  font-weight: 700;
-}
-
-.btn-wing-whatsapp {
-  width: 100%;
-  padding: 0.45rem 0.75rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-  border: 1.5px solid #ffffff;
-  color: #ffffff;
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
-}
-
 /* ==========================================================================
    CENTERPIECE: THE 3D UNFURLING SHAHI FARMAN (IMPERIAL SILK & GOLD SCROLL)
    ========================================================================== */
 
 .shahi-farman-scroll {
   position: relative;
-  width: 100%;
-  max-width: 720px;
-  height: min(80dvh, 640px);
+  width: min(94vw, 760px);
+  height: min(86dvh, 720px);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -1504,9 +1323,15 @@
   gap: 0.3rem;
 }
 
+.celestial-header-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
 .astrolabe-moon {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
 }
 
 .celestial-eyebrow {
@@ -1881,81 +1706,110 @@
    RESPONSIVE DESIGN FOR TABLETS & MOBILE PHONES
    ========================================================================== */
 
-@media (max-width: 1080px) {
-  .shahi-courtyard-interior {
-    grid-template-columns: 1fr;
-  }
-
-  .jharokha-side-wing {
-    display: none;
-  }
-}
-
 @media (max-width: 768px) {
   .shahi-palace-experience {
-    padding: 0.25rem 0.35rem;
+    padding: 0.3rem 0.35rem;
+    justify-content: flex-start;
+    gap: 0.3rem;
   }
 
   .shahi-top-bar {
     width: 96vw;
-    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
     gap: 0.25rem;
   }
 
   .shahi-chapter-tabs {
-    order: 3;
-    width: 100%;
-    justify-content: space-between;
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding: 0.2rem 0.3rem;
-  }
-
-  .shahi-chapter-tabs::-webkit-scrollbar {
-    display: none;
+    padding: 0.16rem 0.28rem;
+    gap: 0.18rem;
   }
 
   .shahi-chapter-pill {
-    padding: 0.22rem 0.5rem;
-    font-size: 0.62rem;
-    flex-shrink: 0;
+    padding: 0.2rem 0.42rem;
+    font-size: 0.6rem;
+    gap: 0.2rem;
   }
 
   .shahi-brand-pill,
   .shahi-gate-toggle-btn,
   .shahi-lang-btn {
-    padding: 0.26rem 0.62rem;
-    font-size: 0.64rem;
+    padding: 0.24rem 0.55rem;
+    font-size: 0.62rem;
+    white-space: nowrap;
   }
 
+  .shahi-whatsapp-mini {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Ensure 3D Palace Gates Medallion fits 100% on phone screens */
+  .shahi-center-medallion {
+    width: min(92vw, 390px);
+    max-height: 85dvh;
+  }
+
+  .medallion-arch-card {
+    border-radius: 130px 130px 22px 22px;
+    padding: 0.7rem 0.85rem 0.75rem;
+    gap: 0.16rem;
+  }
+
+  .medallion-portrait-frame {
+    width: min(145px, 38vw, 20vh);
+    height: min(168px, 44vw, 23vh);
+    margin: 0.1rem auto;
+  }
+
+  .medallion-couple-name {
+    font-size: clamp(1.3rem, 2.8vh, 1.75rem);
+  }
+
+  .btn-unlock-palace-gates {
+    padding: 0.48rem 1.05rem;
+    font-size: 0.7rem;
+  }
+
+  /* Full Unfurled Shahi Farman Scroll on Mobile Phone */
   .shahi-farman-scroll {
     width: 96vw;
-    height: min(74dvh, 590px);
+    height: min(85dvh, 680px);
   }
 
   .farman-roller {
     width: 100%;
-    height: 18px;
+    height: 16px;
   }
 
   .roller-rod {
-    height: 14px;
+    height: 12px;
   }
 
   .roller-finial {
-    width: 16px;
-    height: 18px;
+    width: 14px;
+    height: 16px;
   }
 
   .farman-tassel {
-    height: 24px;
-    width: 8px;
+    height: 20px;
+    width: 7px;
+    top: 14px;
+  }
+
+  .farman-parchment-body {
+    width: 98%;
+    -webkit-overflow-scrolling: touch;
   }
 
   .farman-inner-content {
     justify-content: flex-start;
-    padding: 0.65rem 0.75rem 0.85rem;
+    padding: 0.65rem 0.75rem 1.15rem;
+  }
+
+  .farman-full-tapestry {
+    gap: 0.85rem;
   }
 
   .royal-couple-names-grid {
@@ -1968,39 +1822,30 @@
   }
 
   .royal-families-crest-grid,
-  .celestial-pillars-grid,
   .ceremonies-arch-grid {
     grid-template-columns: 1fr;
     gap: 0.45rem;
   }
 
   .ceremony-arch-card {
-    border-radius: 18px;
+    border-radius: 16px;
     padding: 0.5rem 0.65rem;
   }
+}
 
-  .shahi-bottom-dock {
-    width: 96vw;
-    padding: 0.2rem 0.2rem;
-  }
-
-  .shahi-nav-arrow {
-    padding: 0.28rem 0.65rem;
-    font-size: 0.64rem;
-  }
-
-  .shahi-dot-btn .dot-text {
+@media (max-width: 390px) {
+  .shahi-chapter-pill span:last-child {
     display: none;
   }
 
-  .shahi-dot-btn {
-    padding: 0.2rem 0.3rem;
+  .shahi-chapter-pill {
+    padding: 0.22rem 0.38rem;
+    font-size: 0.68rem;
   }
 
-  /* Keep floating music button clear of bottom navigation bar on mobile */
-  .luxury-music-widget {
-    bottom: 3.3rem !important;
-    right: 0.6rem !important;
+  .medallion-portrait-frame {
+    width: min(128px, 35vw, 18vh);
+    height: min(148px, 40vw, 21vh);
   }
 }
 
