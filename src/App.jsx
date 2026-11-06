@@ -4,7 +4,7 @@ import { translations } from './data/translations';
 
 // Components
 import LanguageSelectorModal from './components/LanguageSelectorModal';
-import WeddingBook from './components/WeddingBook';
+import RoyalPalaceInvitation from './components/RoyalPalaceInvitation';
 import MusicPlayer from './components/MusicPlayer';
 import { HangingLantern } from './components/IslamicOrnaments';
 
@@ -47,9 +47,9 @@ export default function App() {
         onClose={() => setIsLangModalOpen(false)}
       />
 
-      {/* Interactive 3D Royal Flip-Book Invitation */}
+      {/* Interactive 3D Royal Mughal Palace Gates & Unfurling Shahi Farman Scroll */}
       <main className="book-main-stage">
-        <WeddingBook
+        <RoyalPalaceInvitation
           config={weddingConfig}
           translations={translations}
           lang={lang}
