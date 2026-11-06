@@ -121,10 +121,10 @@ export const weddingConfig = {
 
   // Music Settings
   music: {
-    enabled: true,
+    enabled: false,
     title: "Sacred Islamic Wedding Melody",
     audioFilePath: "./audio/wedding-melody.mp3",
-    enableSynthesizerFallback: true,
+    enableSynthesizerFallback: false,
   },
 };
 

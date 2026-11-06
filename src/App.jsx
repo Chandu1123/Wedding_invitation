@@ -5,7 +5,6 @@ import { translations } from './data/translations';
 // Components
 import LanguageSelectorModal from './components/LanguageSelectorModal';
 import RoyalPalaceInvitation from './components/RoyalPalaceInvitation';
-import MusicPlayer from './components/MusicPlayer';
 import { HangingLantern } from './components/IslamicOrnaments';
 
 export default function App() {
@@ -13,7 +12,6 @@ export default function App() {
   const [lang, setLang] = useState('en');
   // Language Modal opens on first arrival so the user is asked which language they want
   const [isLangModalOpen, setIsLangModalOpen] = useState(true);
-  const [hasOpenedBook, setHasOpenedBook] = useState(false);
 
   // Sync document title with groom & bride names from weddingConfig
   useEffect(() => {
@@ -53,16 +51,9 @@ export default function App() {
           config={weddingConfig}
           translations={translations}
           lang={lang}
-          onFirstOpen={() => setHasOpenedBook(true)}
           onOpenLanguageModal={() => setIsLangModalOpen(true)}
         />
       </main>
-
-      {/* Background Royal Audio Player */}
-      <MusicPlayer
-        config={weddingConfig}
-        autoPlay={hasOpenedBook}
-      />
     </div>
   );
 }
